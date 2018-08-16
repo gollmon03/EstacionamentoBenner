@@ -19,6 +19,7 @@ namespace Estacionamento.Models
         [Index(IsUnique = true)]
         [Required]
         [MaxLength (11)]
+        [MinLength (11)]
         
         public string Cpf { get; set; }
     }
