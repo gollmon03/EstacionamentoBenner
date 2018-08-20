@@ -11,117 +11,107 @@ using Estacionamento.Models;
 
 namespace Estacionamento.Controllers
 {
-    public class UsuariosController : Controller
+    public class SetoresController : Controller
     {
         private EstacionamentoContexto db = new EstacionamentoContexto();
 
-        // GET: Usuarios
+        // GET: Setores
         public ActionResult Index()
         {
-            return View(db.Usuarios.ToList());
+            return View(db.Setores.ToList());
         }
 
-        // GET: Usuarios/Details/5
+        // GET: Setores/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Setor setor = db.Setores.Find(id);
+            if (setor == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(setor);
         }
 
-        // GET: Usuarios/Create
+        // GET: Setores/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Usuarios/Create
+        // POST: Setores/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Cpf,Login,Senha")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Id,Nome,Sigla,Situacao")] Setor setor)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    db.Usuarios.Add(usuario);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException e )
-                {
-                    ModelState.AddModelError(String.Empty, "Esse CPF ja esta cadastrado");
-                    
-                }
-                
+                db.Setores.Add(setor);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            
 
-            return View(usuario);
+            return View(setor);
         }
 
-        // GET: Usuarios/Edit/5
+        // GET: Setores/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Setor setor = db.Setores.Find(id);
+            if (setor == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(setor);
         }
 
-        // POST: Usuarios/Edit/5
+        // POST: Setores/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Cpf")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Sigla,Situacao")] Setor setor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
+                db.Entry(setor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            return View(setor);
         }
 
-        // GET: Usuarios/Delete/5
+        // GET: Setores/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Setor setor = db.Setores.Find(id);
+            if (setor == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(setor);
         }
 
-        // POST: Usuarios/Delete/5
+        // POST: Setores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
+            Setor setor = db.Setores.Find(id);
+            db.Setores.Remove(setor);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

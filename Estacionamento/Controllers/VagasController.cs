@@ -11,117 +11,114 @@ using Estacionamento.Models;
 
 namespace Estacionamento.Controllers
 {
-    public class UsuariosController : Controller
+    public class VagasController : Controller
     {
         private EstacionamentoContexto db = new EstacionamentoContexto();
 
-        // GET: Usuarios
+        // GET: Vagas
         public ActionResult Index()
         {
-            return View(db.Usuarios.ToList());
+            
+            var vagas = db.Vagas.Include(v => v.setor);
+            var test = vagas.FirstOrDefault().Numero;
+            return View(vagas.ToList());
         }
 
-        // GET: Usuarios/Details/5
+        // GET: Vagas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Vaga vaga = db.Vagas.Find(id);
+            if (vaga == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(vaga);
         }
 
-        // GET: Usuarios/Create
+        // GET: Vagas/Create
         public ActionResult Create()
         {
+            ViewBag.SetorId = new SelectList(db.Setores, "Id", "Nome");
             return View();
         }
 
-        // POST: Usuarios/Create
+        // POST: Vagas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Cpf,Login,Senha")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Id,Numero,Situacao,SetorId")] Vaga vaga)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    db.Usuarios.Add(usuario);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException e )
-                {
-                    ModelState.AddModelError(String.Empty, "Esse CPF ja esta cadastrado");
-                    
-                }
-                
+                db.Vagas.Add(vaga);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            
 
-            return View(usuario);
+            ViewBag.SetorId = new SelectList(db.Setores, "Id", "Nome", vaga.SetorId);
+            return View(vaga);
         }
 
-        // GET: Usuarios/Edit/5
+        // GET: Vagas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Vaga vaga = db.Vagas.Find(id);
+            if (vaga == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            ViewBag.SetorId = new SelectList(db.Setores, "Id", "Nome", vaga.SetorId);
+            return View(vaga);
         }
 
-        // POST: Usuarios/Edit/5
+        // POST: Vagas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Cpf")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,Numero,Situacao,SetorId")] Vaga vaga)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
+                db.Entry(vaga).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            ViewBag.SetorId = new SelectList(db.Setores, "Id", "Nome", vaga.SetorId);
+            return View(vaga);
         }
 
-        // GET: Usuarios/Delete/5
+        // GET: Vagas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Vaga vaga = db.Vagas.Find(id);
+            if (vaga == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(vaga);
         }
 
-        // POST: Usuarios/Delete/5
+        // POST: Vagas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
+            Vaga vaga = db.Vagas.Find(id);
+            db.Vagas.Remove(vaga);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

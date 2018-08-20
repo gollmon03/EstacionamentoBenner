@@ -11,117 +11,107 @@ using Estacionamento.Models;
 
 namespace Estacionamento.Controllers
 {
-    public class UsuariosController : Controller
+    public class TipoVeiculosController : Controller
     {
         private EstacionamentoContexto db = new EstacionamentoContexto();
 
-        // GET: Usuarios
+        // GET: TipoVeiculos
         public ActionResult Index()
         {
-            return View(db.Usuarios.ToList());
+            return View(db.TipoVeiculos.ToList());
         }
 
-        // GET: Usuarios/Details/5
+        // GET: TipoVeiculos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            TipoVeiculo tipoVeiculo = db.TipoVeiculos.Find(id);
+            if (tipoVeiculo == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(tipoVeiculo);
         }
 
-        // GET: Usuarios/Create
+        // GET: TipoVeiculos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Usuarios/Create
+        // POST: TipoVeiculos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Cpf,Login,Senha")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Id,Nome")] TipoVeiculo tipoVeiculo)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    db.Usuarios.Add(usuario);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException e )
-                {
-                    ModelState.AddModelError(String.Empty, "Esse CPF ja esta cadastrado");
-                    
-                }
-                
+                db.TipoVeiculos.Add(tipoVeiculo);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            
 
-            return View(usuario);
+            return View(tipoVeiculo);
         }
 
-        // GET: Usuarios/Edit/5
+        // GET: TipoVeiculos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            TipoVeiculo tipoVeiculo = db.TipoVeiculos.Find(id);
+            if (tipoVeiculo == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(tipoVeiculo);
         }
 
-        // POST: Usuarios/Edit/5
+        // POST: TipoVeiculos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Cpf")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,Nome")] TipoVeiculo tipoVeiculo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
+                db.Entry(tipoVeiculo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            return View(tipoVeiculo);
         }
 
-        // GET: Usuarios/Delete/5
+        // GET: TipoVeiculos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            TipoVeiculo tipoVeiculo = db.TipoVeiculos.Find(id);
+            if (tipoVeiculo == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(tipoVeiculo);
         }
 
-        // POST: Usuarios/Delete/5
+        // POST: TipoVeiculos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
+            TipoVeiculo tipoVeiculo = db.TipoVeiculos.Find(id);
+            db.TipoVeiculos.Remove(tipoVeiculo);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -16,6 +16,9 @@ namespace Estacionamento.Contexto
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Setor> Setores { get; set; }
+        public DbSet<Vaga> Vagas { get; set; }
+        public DbSet<TipoVeiculo> TipoVeiculos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -31,6 +34,8 @@ namespace Estacionamento.Contexto
 
             
         }
+
+
 
     }
 }

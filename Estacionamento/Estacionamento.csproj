@@ -155,12 +155,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Contexto\EstacionamentoContexto.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SetoresController.cs" />
+    <Compile Include="Controllers\TipoVeiculosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\VagasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808201942572_Inicial.cs" />
+    <Compile Include="Migrations\201808201942572_Inicial.Designer.cs">
+      <DependentUpon>201808201942572_Inicial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Setor.cs" />
+    <Compile Include="Models\TipoVeiculo.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Vaga.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +217,21 @@
     <Content Include="Views\Usuarios\Details.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Vagas\Create.cshtml" />
+    <Content Include="Views\Vagas\Delete.cshtml" />
+    <Content Include="Views\Vagas\Details.cshtml" />
+    <Content Include="Views\Vagas\Edit.cshtml" />
+    <Content Include="Views\Vagas\Index.cshtml" />
+    <Content Include="Views\Setores\Create.cshtml" />
+    <Content Include="Views\Setores\Delete.cshtml" />
+    <Content Include="Views\Setores\Details.cshtml" />
+    <Content Include="Views\Setores\Edit.cshtml" />
+    <Content Include="Views\Setores\Index.cshtml" />
+    <Content Include="Views\TipoVeiculos\Create.cshtml" />
+    <Content Include="Views\TipoVeiculos\Delete.cshtml" />
+    <Content Include="Views\TipoVeiculos\Details.cshtml" />
+    <Content Include="Views\TipoVeiculos\Edit.cshtml" />
+    <Content Include="Views\TipoVeiculos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -223,6 +248,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201808201942572_Inicial.resx">
+      <DependentUpon>201808201942572_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
