@@ -7,10 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Estacionamento.Contexto;
+using Estacionamento.Filtro;
 using Estacionamento.Models;
 
 namespace Estacionamento.Controllers
 {
+    [AutorizacaoFilter]
     public class UsuariosController : Controller
     {
         private EstacionamentoContexto db = new EstacionamentoContexto();
@@ -57,7 +59,7 @@ namespace Estacionamento.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException e )
+                catch (System.Data.Entity.Infrastructure.DbUpdateException )
                 {
                     ModelState.AddModelError(String.Empty, "Esse CPF ja esta cadastrado");
                     

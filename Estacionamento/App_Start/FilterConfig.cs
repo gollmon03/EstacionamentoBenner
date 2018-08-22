@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using Estacionamento.Filtro;
 
 namespace Estacionamento
 {
@@ -7,7 +8,7 @@ namespace Estacionamento
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            // filters.Add(new AutorizacaoFilterAttribute());
         }
     }
 }

@@ -7,10 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Estacionamento.Contexto;
+using Estacionamento.Filtro;
 using Estacionamento.Models;
 
 namespace Estacionamento.Controllers
 {
+    [AutorizacaoFilter]
     public class SetoresController : Controller
     {
         private EstacionamentoContexto db = new EstacionamentoContexto();

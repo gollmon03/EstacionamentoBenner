@@ -155,7 +155,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Contexto\EstacionamentoContexto.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\SetoresController.cs" />
+    <Compile Include="Controllers\TipoVeiculosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\VagasController.cs" />
+    <Compile Include="Filtro\AutorizacaoFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -164,7 +169,10 @@
       <DependentUpon>201808161353428_Inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Setor.cs" />
+    <Compile Include="Models\TipoVeiculo.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Vaga.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +219,23 @@
     <Content Include="Views\Usuarios\Details.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Setores\Create.cshtml" />
+    <Content Include="Views\Setores\Delete.cshtml" />
+    <Content Include="Views\Setores\Details.cshtml" />
+    <Content Include="Views\Setores\Edit.cshtml" />
+    <Content Include="Views\Setores\Index.cshtml" />
+    <Content Include="Views\TipoVeiculos\Create.cshtml" />
+    <Content Include="Views\TipoVeiculos\Delete.cshtml" />
+    <Content Include="Views\TipoVeiculos\Details.cshtml" />
+    <Content Include="Views\TipoVeiculos\Edit.cshtml" />
+    <Content Include="Views\TipoVeiculos\Index.cshtml" />
+    <Content Include="Views\Vagas\Create.cshtml" />
+    <Content Include="Views\Vagas\Delete.cshtml" />
+    <Content Include="Views\Vagas\Details.cshtml" />
+    <Content Include="Views\Vagas\Edit.cshtml" />
+    <Content Include="Views\Vagas\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\_Empty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
