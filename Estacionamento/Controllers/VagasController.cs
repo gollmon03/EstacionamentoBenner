@@ -22,7 +22,7 @@ namespace Estacionamento.Controllers
         {
             
             var vagas = db.Vagas.Include(v => v.setor);
-            var test = vagas.FirstOrDefault().Numero;
+           
             return View(vagas.ToList());
         }
 
