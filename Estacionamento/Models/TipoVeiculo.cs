@@ -13,5 +13,9 @@ namespace Estacionamento.Models
         [Required (ErrorMessage = "Campo Obrigatório")]
         [MaxLength(60 , ErrorMessage = "Deve conter no maximo 60 digitos")]
         public string Nome { get; set; }
+
+       
+        public IList<TabelaPreco> TabelasPreco { get; set; }
+        public IList<ModeloVeiculo> ModelosVeiculo { get; set; }
     }
 }

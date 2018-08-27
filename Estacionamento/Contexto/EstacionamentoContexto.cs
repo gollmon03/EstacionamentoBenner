@@ -19,6 +19,10 @@ namespace Estacionamento.Contexto
         public DbSet<Setor> Setores { get; set; }
         public DbSet<Vaga> Vagas { get; set; }
         public DbSet<TipoVeiculo> TipoVeiculos { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<ModeloVeiculo> ModeloVeiculos { get; set; }
+        public DbSet<TabelaPreco> TabelaPrecos { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

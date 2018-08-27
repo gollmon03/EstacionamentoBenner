@@ -154,9 +154,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Contexto\EstacionamentoContexto.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ModeloVeiculosController.cs" />
     <Compile Include="Controllers\SetoresController.cs" />
+    <Compile Include="Controllers\TabelaPrecosController.cs" />
     <Compile Include="Controllers\TipoVeiculosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VagasController.cs" />
@@ -164,12 +167,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808161353428_Inicial.cs" />
-    <Compile Include="Migrations\201808161353428_Inicial.Designer.cs">
-      <DependentUpon>201808161353428_Inicial.cs</DependentUpon>
+    <Compile Include="Migrations\201808271841511_Inicial.cs" />
+    <Compile Include="Migrations\201808271841511_Inicial.Designer.cs">
+      <DependentUpon>201808271841511_Inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Enuns\Situacao.cs" />
+    <Compile Include="Models\ModeloVeiculo.cs" />
     <Compile Include="Models\Setor.cs" />
+    <Compile Include="Models\TabelaPreco.cs" />
     <Compile Include="Models\TipoVeiculo.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Vaga.cs" />
@@ -236,6 +243,21 @@
     <Content Include="Views\Vagas\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_Empty.cshtml" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\ModeloVeiculos\Create.cshtml" />
+    <Content Include="Views\ModeloVeiculos\Delete.cshtml" />
+    <Content Include="Views\ModeloVeiculos\Details.cshtml" />
+    <Content Include="Views\ModeloVeiculos\Edit.cshtml" />
+    <Content Include="Views\ModeloVeiculos\Index.cshtml" />
+    <Content Include="Views\TabelaPrecos\Create.cshtml" />
+    <Content Include="Views\TabelaPrecos\Delete.cshtml" />
+    <Content Include="Views\TabelaPrecos\Details.cshtml" />
+    <Content Include="Views\TabelaPrecos\Edit.cshtml" />
+    <Content Include="Views\TabelaPrecos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -254,8 +276,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808161353428_Inicial.resx">
-      <DependentUpon>201808161353428_Inicial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808271841511_Inicial.resx">
+      <DependentUpon>201808271841511_Inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

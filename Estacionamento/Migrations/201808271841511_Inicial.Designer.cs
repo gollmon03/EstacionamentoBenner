@@ -13,7 +13,7 @@ namespace Estacionamento.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201808161353428_Inicial"; }
+            get { return "201808271841511_Inicial"; }
         }
         
         string IMigrationMetadata.Source

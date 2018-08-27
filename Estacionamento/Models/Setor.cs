@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using Estacionamento.Models.Enuns;
 
 namespace Estacionamento.Models
 {
@@ -23,7 +24,8 @@ namespace Estacionamento.Models
         public string Sigla { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]
-        public int Situacao { get; set; }
+        [Display(Name = "Situação")]
+        public Situacao Situacao { get; set; }
 
         public ICollection<Vaga> vagas { get; set; }
     }

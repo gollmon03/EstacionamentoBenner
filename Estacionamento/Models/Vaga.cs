@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Estacionamento.Models.Enuns;
 
 namespace Estacionamento.Models
 {
@@ -16,7 +17,8 @@ namespace Estacionamento.Models
         public int Numero { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
-        public int Situacao { get; set; }
+        [Display(Name = "Situação")]
+        public Situacao Situacao { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Setor")]
