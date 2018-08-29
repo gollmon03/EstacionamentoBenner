@@ -158,6 +158,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ModeloVeiculosController.cs" />
+    <Compile Include="Controllers\MovimentacaoVeiculosController.cs" />
     <Compile Include="Controllers\SetoresController.cs" />
     <Compile Include="Controllers\TabelaPrecosController.cs" />
     <Compile Include="Controllers\TipoVeiculosController.cs" />
@@ -167,14 +168,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808271841511_Inicial.cs" />
-    <Compile Include="Migrations\201808271841511_Inicial.Designer.cs">
-      <DependentUpon>201808271841511_Inicial.cs</DependentUpon>
+    <Compile Include="Migrations\201808291919504_Inicial.cs" />
+    <Compile Include="Migrations\201808291919504_Inicial.Designer.cs">
+      <DependentUpon>201808291919504_Inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Enuns\Situacao.cs" />
     <Compile Include="Models\ModeloVeiculo.cs" />
+    <Compile Include="Models\MovimentacaoVeiculo.cs" />
     <Compile Include="Models\Setor.cs" />
     <Compile Include="Models\TabelaPreco.cs" />
     <Compile Include="Models\TipoVeiculo.cs" />
@@ -258,6 +260,8 @@
     <Content Include="Views\TabelaPrecos\Details.cshtml" />
     <Content Include="Views\TabelaPrecos\Edit.cshtml" />
     <Content Include="Views\TabelaPrecos\Index.cshtml" />
+    <Content Include="Views\MovimentacaoVeiculos\Create.cshtml" />
+    <Content Include="Views\MovimentacaoVeiculos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -276,8 +280,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808271841511_Inicial.resx">
-      <DependentUpon>201808271841511_Inicial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808291919504_Inicial.resx">
+      <DependentUpon>201808291919504_Inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

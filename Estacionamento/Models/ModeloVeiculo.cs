@@ -24,5 +24,7 @@ namespace Estacionamento.Models
 
         public IList<Cliente> Clientes { get; set; }
 
+        public virtual IList<MovimentacaoVeiculo> MovimentacaoVeiculos { get; set; }
+
     }
 }

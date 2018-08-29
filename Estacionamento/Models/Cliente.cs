@@ -35,5 +35,7 @@ namespace Estacionamento.Models
         public int ModeloVeiculoId { get; set; }
         
         public ModeloVeiculo ModeloVeiculo { get; set; }
+
+        public virtual IList<MovimentacaoVeiculo> MovimentacaoVeiculos { get; set; }
     }
 }

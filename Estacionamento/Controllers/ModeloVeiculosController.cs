@@ -40,7 +40,7 @@ namespace Estacionamento.Controllers
         // GET: ModeloVeiculos/Create
         public ActionResult Create()
         {
-            ViewBag.TipoVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Nome");
+            ViewBag.TipoVeiculoId = new SelectList(db.TipoVeiculos, "Id", "Nome");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace Estacionamento.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TipoVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Nome", modeloVeiculo.TipoVeiculoId);
+            ViewBag.TipoVeiculoId = new SelectList(db.TipoVeiculos, "Id", "Nome", modeloVeiculo.TipoVeiculoId);
             return View(modeloVeiculo);
         }
 
@@ -74,7 +74,7 @@ namespace Estacionamento.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TipoVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Nome", modeloVeiculo.TipoVeiculoId);
+            ViewBag.TipoVeiculoId = new SelectList(db.TipoVeiculos, "Id", "Nome", modeloVeiculo.TipoVeiculoId);
             return View(modeloVeiculo);
         }
 
@@ -91,7 +91,7 @@ namespace Estacionamento.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TipoVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Nome", modeloVeiculo.TipoVeiculoId);
+            ViewBag.TipoVeiculoId = new SelectList(db.TipoVeiculos, "Id", "Nome", modeloVeiculo.TipoVeiculoId);
             return View(modeloVeiculo);
         }
 

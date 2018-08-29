@@ -20,5 +20,7 @@ namespace Estacionamento.Models
         [Display(Name = "Setor")]
         public int TipoVeiculoId { get; set; }
         public TipoVeiculo TipoVeiculo { get; set; }
+
+        
     }
 }

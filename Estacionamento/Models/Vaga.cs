@@ -13,7 +13,7 @@ namespace Estacionamento.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
-        [Range(0 , 200 , ErrorMessage = "Limite de Vagas é 200")]
+        [Range(0, 200, ErrorMessage = "Limite de Vagas é 200")]
         public int Numero { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
@@ -24,5 +24,10 @@ namespace Estacionamento.Models
         [Display(Name = "Setor")]
         public int SetorId { get; set; }
         public Setor setor { get; set; }
+
+        public virtual IList<MovimentacaoVeiculo> MovimentacaoVeiculos { get; set; }
+
+       
+
     }
 }

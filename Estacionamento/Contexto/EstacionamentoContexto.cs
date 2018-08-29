@@ -22,6 +22,7 @@ namespace Estacionamento.Contexto
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<ModeloVeiculo> ModeloVeiculos { get; set; }
         public DbSet<TabelaPreco> TabelaPrecos { get; set; }
+        public DbSet<MovimentacaoVeiculo> MovimentacaoVeiculos { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

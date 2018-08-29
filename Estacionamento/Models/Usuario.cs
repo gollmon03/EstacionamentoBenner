@@ -25,13 +25,15 @@ namespace Estacionamento.Models
 
         [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(30)]
-        public string Login {get; set;}
+        public string Login { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]
-        [MaxLength(15 , ErrorMessage = "Deve conter no maximo 15 digitos")]
-        [MinLength(6  , ErrorMessage = "Deve conter no minimo 6 digitos")]
+        [MaxLength(15, ErrorMessage = "Deve conter no maximo 15 digitos")]
+        [MinLength(6, ErrorMessage = "Deve conter no minimo 6 digitos")]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
+
+        public virtual IList<MovimentacaoVeiculo> MovimentacaoVeiculos { get; set; }
 
     }
 

@@ -17,5 +17,7 @@ namespace Estacionamento.Models
        
         public IList<TabelaPreco> TabelasPreco { get; set; }
         public IList<ModeloVeiculo> ModelosVeiculo { get; set; }
+
+        
     }
 }
