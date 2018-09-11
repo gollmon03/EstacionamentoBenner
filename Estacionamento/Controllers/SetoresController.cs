@@ -1,36 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Estacionamento.Contexto;
 using Estacionamento.Filtro;
 using Estacionamento.Models;
+using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
     [AutorizacaoFilter]
     public class SetoresController : Controller
     {
-        private EstacionamentoContexto db = new EstacionamentoContexto();
+        private readonly SetorRegras setorregras = new SetorRegras();
 
         // GET: Setores
         public ActionResult Index()
         {
-            return View(db.Setores.ToList());
+            return View(setorregras.buscarTodos());
         }
 
         // GET: Setores/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Setor setor = db.Setores.Find(id);
+            Setor setor = setorregras.buscarporID(id);
             if (setor == null)
             {
                 return HttpNotFound();
@@ -53,8 +44,7 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Setores.Add(setor);
-                db.SaveChanges();
+                setorregras.Adicionar(setor);
                 return RedirectToAction("Index");
             }
 
@@ -62,13 +52,9 @@ namespace Estacionamento.Controllers
         }
 
         // GET: Setores/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Setor setor = db.Setores.Find(id);
+            Setor setor = setorregras.buscarporID(id);
             if (setor == null)
             {
                 return HttpNotFound();
@@ -85,21 +71,16 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(setor).State = EntityState.Modified;
-                db.SaveChanges();
+                setorregras.Atualizar(setor);
                 return RedirectToAction("Index");
             }
             return View(setor);
         }
 
         // GET: Setores/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Setor setor = db.Setores.Find(id);
+            Setor setor = setorregras.buscarporID(id);
             if (setor == null)
             {
                 return HttpNotFound();
@@ -112,19 +93,10 @@ namespace Estacionamento.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Setor setor = db.Setores.Find(id);
-            db.Setores.Remove(setor);
-            db.SaveChanges();
+            Setor setor = setorregras.buscarporID(id);
+            setorregras.Remover(setor);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

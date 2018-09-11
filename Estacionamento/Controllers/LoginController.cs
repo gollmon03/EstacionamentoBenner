@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Estacionamento.Contexto;
+using Estacionamento.Models;
+using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
 
     public class LoginController : Controller
     {
-        private EstacionamentoContexto db = new EstacionamentoContexto();
+        private UsuarioRegras usuarioregras = new UsuarioRegras();
 
         [HttpGet]
         // GET: Login
@@ -24,7 +23,12 @@ namespace Estacionamento.Controllers
         public ActionResult Index(String login, String senha)
         {
 
-            var funcionario = db.Usuarios.Where(u => u.Login == login && u.Senha == senha).FirstOrDefault();
+            var funcionario = new Usuario()
+            {
+                Login = "thiago",
+                Senha = "thiago"
+            };
+
             if (funcionario != null)
             {
                 Session["usuarioLogado"] = funcionario;

@@ -1,35 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 using System.Web.Mvc;
-using Estacionamento.Contexto;
 using Estacionamento.Models;
+using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
     public class MovimentacaoVeiculosController : Controller
     {
-        private EstacionamentoContexto db = new EstacionamentoContexto();
+        private MovimentacaoVeiculoRegras movimentacaoveiculoregras = new MovimentacaoVeiculoRegras();
+        private MensalistaRegras mensalistaregras = new MensalistaRegras();
+        private ModeloVeiculoRegras modeloveiculoregras = new ModeloVeiculoRegras();
+        private UsuarioRegras usuarioregras = new UsuarioRegras();
+        private VagaRegras vagaregras = new VagaRegras();
 
         // GET: MovimentacaoVeiculos
         public ActionResult Index()
         {
-            var movimentacaoVeiculos = db.MovimentacaoVeiculos.Include(m => m.Cliente).Include(m => m.ModeloVeiculo).Include(m => m.Usuario).Include(m => m.Vaga);
-            return View(movimentacaoVeiculos.ToList());
+            return View(movimentacaoveiculoregras.buscarTodos());         
         }
 
         // GET: MovimentacaoVeiculos/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MovimentacaoVeiculo movimentacaoVeiculo = db.MovimentacaoVeiculos.Find(id);
+            MovimentacaoVeiculo movimentacaoVeiculo = movimentacaoveiculoregras.buscarporID(id);
             if (movimentacaoVeiculo == null)
             {
                 return HttpNotFound();
@@ -40,10 +33,10 @@ namespace Estacionamento.Controllers
         // GET: MovimentacaoVeiculos/Create
         public ActionResult Create()
         {
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome");
-            ViewBag.ModeloVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Marca");
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome");
-            ViewBag.VagaId = new SelectList(db.Vagas, "Id", "Numero");
+            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Nome");
+            ViewBag.ModeloVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Marca");
+            ViewBag.UsuarioId = new SelectList(usuarioregras.buscarTodos(), "Id", "Nome");
+            ViewBag.VagaId = new SelectList(vagaregras.buscarTodos(), "Id", "Numero");
             return View();
         }
 
@@ -56,34 +49,30 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.MovimentacaoVeiculos.Add(movimentacaoVeiculo);
-                db.SaveChanges();
+                movimentacaoveiculoregras.Adicionar(movimentacaoVeiculo);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", movimentacaoVeiculo.ClienteId);
-            ViewBag.ModeloVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Marca", movimentacaoVeiculo.ModeloVeiculoId);
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", movimentacaoVeiculo.UsuarioId);
-            ViewBag.VagaId = new SelectList(db.Vagas, "Id", "Numero", movimentacaoVeiculo.VagaId);
+            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.MensalistaId);
+            ViewBag.ModeloVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Marca", movimentacaoVeiculo.ModeloVeiculoId);
+            ViewBag.UsuarioId = new SelectList(usuarioregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.UsuarioId);
+            ViewBag.VagaId = new SelectList(vagaregras.buscarTodos(), "Id", "Numero", movimentacaoVeiculo.VagaId);
             return View(movimentacaoVeiculo);
         }
 
         // GET: MovimentacaoVeiculos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MovimentacaoVeiculo movimentacaoVeiculo = db.MovimentacaoVeiculos.Find(id);
+            MovimentacaoVeiculo movimentacaoVeiculo = movimentacaoveiculoregras.buscarporID(id);
             if (movimentacaoVeiculo == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", movimentacaoVeiculo.ClienteId);
-            ViewBag.ModeloVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Marca", movimentacaoVeiculo.ModeloVeiculoId);
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", movimentacaoVeiculo.UsuarioId);
-            ViewBag.VagaId = new SelectList(db.Vagas, "Id", "Id", movimentacaoVeiculo.VagaId);
+
+            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.MensalistaId);
+            ViewBag.ModeloVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Marca", movimentacaoVeiculo.ModeloVeiculoId);
+            ViewBag.UsuarioId = new SelectList(usuarioregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.UsuarioId);
+            ViewBag.VagaId = new SelectList(vagaregras.buscarTodos(), "Id", "Numero", movimentacaoVeiculo.VagaId);
             return View(movimentacaoVeiculo);
         }
 
@@ -96,25 +85,21 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(movimentacaoVeiculo).State = EntityState.Modified;
-                db.SaveChanges();
+                movimentacaoveiculoregras.Atualizar(movimentacaoVeiculo);
                 return RedirectToAction("Index");
             }
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "Nome", movimentacaoVeiculo.ClienteId);
-            ViewBag.ModeloVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Marca", movimentacaoVeiculo.ModeloVeiculoId);
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", movimentacaoVeiculo.UsuarioId);
-            ViewBag.VagaId = new SelectList(db.Vagas, "Id", "Id", movimentacaoVeiculo.VagaId);
+
+            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.MensalistaId);
+            ViewBag.ModeloVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Marca", movimentacaoVeiculo.ModeloVeiculoId);
+            ViewBag.UsuarioId = new SelectList(usuarioregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.UsuarioId);
+            ViewBag.VagaId = new SelectList(vagaregras.buscarTodos(), "Id", "Numero", movimentacaoVeiculo.VagaId);
             return View(movimentacaoVeiculo);
         }
 
         // GET: MovimentacaoVeiculos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MovimentacaoVeiculo movimentacaoVeiculo = db.MovimentacaoVeiculos.Find(id);
+            MovimentacaoVeiculo movimentacaoVeiculo = movimentacaoveiculoregras.buscarporID(id);
             if (movimentacaoVeiculo == null)
             {
                 return HttpNotFound();
@@ -127,19 +112,9 @@ namespace Estacionamento.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MovimentacaoVeiculo movimentacaoVeiculo = db.MovimentacaoVeiculos.Find(id);
-            db.MovimentacaoVeiculos.Remove(movimentacaoVeiculo);
-            db.SaveChanges();
+            MovimentacaoVeiculo movimentacaoVeiculo = movimentacaoveiculoregras.buscarporID(id);
+            movimentacaoveiculoregras.Remover(movimentacaoVeiculo);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

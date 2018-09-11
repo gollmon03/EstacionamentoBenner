@@ -1,0 +1,50 @@
+﻿@model Estacionamento.Models.Mensalista
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Mensalista</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ModeloVeiculo.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModeloVeiculo.Marca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pessoa.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pessoa.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlacaVeiculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlacaVeiculo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMensal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMensal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

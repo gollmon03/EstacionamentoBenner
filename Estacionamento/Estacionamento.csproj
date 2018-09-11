@@ -45,12 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -153,12 +147,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Contexto\EstacionamentoContexto.cs" />
-    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MensalistasController.cs" />
     <Compile Include="Controllers\ModeloVeiculosController.cs" />
     <Compile Include="Controllers\MovimentacaoVeiculosController.cs" />
+    <Compile Include="Controllers\PessoasController.cs" />
     <Compile Include="Controllers\SetoresController.cs" />
     <Compile Include="Controllers\TabelaPrecosController.cs" />
     <Compile Include="Controllers\TipoVeiculosController.cs" />
@@ -168,20 +162,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808291919504_Inicial.cs" />
-    <Compile Include="Migrations\201808291919504_Inicial.Designer.cs">
-      <DependentUpon>201808291919504_Inicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Cliente.cs" />
-    <Compile Include="Models\Enuns\Situacao.cs" />
-    <Compile Include="Models\ModeloVeiculo.cs" />
-    <Compile Include="Models\MovimentacaoVeiculo.cs" />
-    <Compile Include="Models\Setor.cs" />
-    <Compile Include="Models\TabelaPreco.cs" />
-    <Compile Include="Models\TipoVeiculo.cs" />
-    <Compile Include="Models\Usuario.cs" />
-    <Compile Include="Models\Vaga.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -245,11 +225,6 @@
     <Content Include="Views\Vagas\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_Empty.cshtml" />
-    <Content Include="Views\Clientes\Create.cshtml" />
-    <Content Include="Views\Clientes\Delete.cshtml" />
-    <Content Include="Views\Clientes\Details.cshtml" />
-    <Content Include="Views\Clientes\Edit.cshtml" />
-    <Content Include="Views\Clientes\Index.cshtml" />
     <Content Include="Views\ModeloVeiculos\Create.cshtml" />
     <Content Include="Views\ModeloVeiculos\Delete.cshtml" />
     <Content Include="Views\ModeloVeiculos\Details.cshtml" />
@@ -262,9 +237,20 @@
     <Content Include="Views\TabelaPrecos\Index.cshtml" />
     <Content Include="Views\MovimentacaoVeiculos\Create.cshtml" />
     <Content Include="Views\MovimentacaoVeiculos\Index.cshtml" />
+    <Content Include="Views\Pessoas\Create.cshtml" />
+    <Content Include="Views\Pessoas\Delete.cshtml" />
+    <Content Include="Views\Pessoas\Details.cshtml" />
+    <Content Include="Views\Pessoas\Edit.cshtml" />
+    <Content Include="Views\Pessoas\Index.cshtml" />
+    <Content Include="Views\Mensalistas\Create.cshtml" />
+    <Content Include="Views\Mensalistas\Delete.cshtml" />
+    <Content Include="Views\Mensalistas\Details.cshtml" />
+    <Content Include="Views\Mensalistas\Edit.cshtml" />
+    <Content Include="Views\Mensalistas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -280,9 +266,14 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808291919504_Inicial.resx">
-      <DependentUpon>201808291919504_Inicial.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{A40B6A1F-543D-479E-9051-C2145562644B}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RegrasNegocio\RegrasNegocio.csproj">
+      <Project>{0e1ec7e9-3922-4014-ae5e-5cf83e1baafa}</Project>
+      <Name>RegrasNegocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,36 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Estacionamento.Contexto;
 using Estacionamento.Filtro;
 using Estacionamento.Models;
+using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
     [AutorizacaoFilter]
     public class UsuariosController : Controller
     {
-        private EstacionamentoContexto db = new EstacionamentoContexto();
+        private UsuarioRegras usuarioregras = new UsuarioRegras();
 
         // GET: Usuarios
         public ActionResult Index()
         {
-            return View(db.Usuarios.ToList());
+            return View(usuarioregras.buscarTodos());
         }
 
         // GET: Usuarios/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usuario usuario = db.Usuarios.Find(id);
+            Usuario usuario = usuarioregras.buscarporID(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -55,30 +47,22 @@ namespace Estacionamento.Controllers
             {
                 try
                 {
-                    db.Usuarios.Add(usuario);
-                    db.SaveChanges();
+                    usuarioregras.Adicionar(usuario);
                     return RedirectToAction("Index");
                 }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException )
+                catch (Exception)
                 {
                     ModelState.AddModelError(String.Empty, "Esse CPF ja esta cadastrado");
-                    
-                }
-                
-            }
-            
 
+                }
+            }
             return View(usuario);
         }
 
         // GET: Usuarios/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usuario usuario = db.Usuarios.Find(id);
+            Usuario usuario = usuarioregras.buscarporID(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -95,21 +79,16 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
-                db.SaveChanges();
+                usuarioregras.Atualizar(usuario);
                 return RedirectToAction("Index");
             }
             return View(usuario);
         }
 
         // GET: Usuarios/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Usuario usuario = db.Usuarios.Find(id);
+            Usuario usuario = usuarioregras.buscarporID(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -122,19 +101,9 @@ namespace Estacionamento.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
-            db.SaveChanges();
+            Usuario usuario = usuarioregras.buscarporID(id);
+            usuarioregras.Remover(usuario);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

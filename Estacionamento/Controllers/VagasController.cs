@@ -1,39 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Estacionamento.Contexto;
 using Estacionamento.Filtro;
 using Estacionamento.Models;
+using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
     [AutorizacaoFilter]
     public class VagasController : Controller
     {
-        private EstacionamentoContexto db = new EstacionamentoContexto();
+        private VagaRegras vagaregras = new VagaRegras();
+        private SetorRegras setorregras = new SetorRegras();
 
         // GET: Vagas
         public ActionResult Index()
-        {
-            
-            var vagas = db.Vagas.Include(v => v.setor);
-           
-            return View(vagas.ToList());
+        { 
+            return View(vagaregras.buscarTodos());
         }
 
         // GET: Vagas/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Vaga vaga = db.Vagas.Find(id);
+        public ActionResult Details(int id)
+        {           
+            Vaga vaga = vagaregras.buscarporID(id);
             if (vaga == null)
             {
                 return HttpNotFound();
@@ -44,7 +33,7 @@ namespace Estacionamento.Controllers
         // GET: Vagas/Create
         public ActionResult Create()
         {
-            ViewBag.SetorId = new SelectList(db.Setores, "Id", "Nome");
+            ViewBag.SetorId = new SelectList(setorregras.buscarTodos(), "Id", "Nome");
             return View();
         }
 
@@ -57,28 +46,23 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Vagas.Add(vaga);
-                db.SaveChanges();
+                vagaregras.Adicionar(vaga);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SetorId = new SelectList(db.Setores, "Id", "Nome", vaga.SetorId);
+            ViewBag.SetorId = new SelectList(setorregras.buscarTodos(), "Id", "Nome", vaga.SetorId);
             return View(vaga);
         }
 
         // GET: Vagas/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Vaga vaga = db.Vagas.Find(id);
+            Vaga vaga = vagaregras.buscarporID(id);
             if (vaga == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SetorId = new SelectList(db.Setores, "Id", "Nome", vaga.SetorId);
+            ViewBag.SetorId = new SelectList(setorregras.buscarTodos(), "Id", "Nome", vaga.SetorId);
             return View(vaga);
         }
 
@@ -91,22 +75,17 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vaga).State = EntityState.Modified;
-                db.SaveChanges();
+                vagaregras.Atualizar(vaga);
                 return RedirectToAction("Index");
             }
-            ViewBag.SetorId = new SelectList(db.Setores, "Id", "Nome", vaga.SetorId);
+            ViewBag.SetorId = new SelectList(setorregras.buscarTodos(), "Id", "Nome", vaga.SetorId);
             return View(vaga);
         }
 
         // GET: Vagas/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Vaga vaga = db.Vagas.Find(id);
+            Vaga vaga = vagaregras.buscarporID(id);
             if (vaga == null)
             {
                 return HttpNotFound();
@@ -119,19 +98,10 @@ namespace Estacionamento.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Vaga vaga = db.Vagas.Find(id);
-            db.Vagas.Remove(vaga);
-            db.SaveChanges();
+            Vaga vaga = vagaregras.buscarporID(id);
+            vagaregras.Remover(vaga);
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

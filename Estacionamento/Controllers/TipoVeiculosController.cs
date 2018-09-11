@@ -1,36 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Estacionamento.Contexto;
 using Estacionamento.Filtro;
 using Estacionamento.Models;
+using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
     [AutorizacaoFilter]
     public class TipoVeiculosController : Controller
     {
-        private EstacionamentoContexto db = new EstacionamentoContexto();
+        private TipoVeiculoRegras tipoveiculoregras = new TipoVeiculoRegras();
 
         // GET: TipoVeiculos
         public ActionResult Index()
         {
-            return View(db.TipoVeiculos.ToList());
+            return View(tipoveiculoregras.buscarTodos());
         }
 
         // GET: TipoVeiculos/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TipoVeiculo tipoVeiculo = db.TipoVeiculos.Find(id);
+            TipoVeiculo tipoVeiculo = tipoveiculoregras.buscarporID(id);
             if (tipoVeiculo == null)
             {
                 return HttpNotFound();
@@ -53,8 +44,7 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.TipoVeiculos.Add(tipoVeiculo);
-                db.SaveChanges();
+                tipoveiculoregras.Adicionar(tipoVeiculo);
                 return RedirectToAction("Index");
             }
 
@@ -62,13 +52,9 @@ namespace Estacionamento.Controllers
         }
 
         // GET: TipoVeiculos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TipoVeiculo tipoVeiculo = db.TipoVeiculos.Find(id);
+            TipoVeiculo tipoVeiculo = tipoveiculoregras.buscarporID(id);
             if (tipoVeiculo == null)
             {
                 return HttpNotFound();
@@ -85,21 +71,16 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tipoVeiculo).State = EntityState.Modified;
-                db.SaveChanges();
+                tipoveiculoregras.Atualizar(tipoVeiculo);
                 return RedirectToAction("Index");
             }
             return View(tipoVeiculo);
         }
 
         // GET: TipoVeiculos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TipoVeiculo tipoVeiculo = db.TipoVeiculos.Find(id);
+            TipoVeiculo tipoVeiculo = tipoveiculoregras.buscarporID(id);
             if (tipoVeiculo == null)
             {
                 return HttpNotFound();
@@ -112,19 +93,9 @@ namespace Estacionamento.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TipoVeiculo tipoVeiculo = db.TipoVeiculos.Find(id);
-            db.TipoVeiculos.Remove(tipoVeiculo);
-            db.SaveChanges();
+            TipoVeiculo tipoVeiculo = tipoveiculoregras.buscarporID(id);
+            tipoveiculoregras.Remover(tipoVeiculo);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

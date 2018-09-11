@@ -1,35 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Estacionamento.Contexto;
 using Estacionamento.Models;
+using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
     public class TabelaPrecosController : Controller
     {
-        private EstacionamentoContexto db = new EstacionamentoContexto();
+        private TabelaPrecoRegras tabelaprecoregras = new TabelaPrecoRegras();
+        private TipoVeiculoRegras tipoveiculoregras = new TipoVeiculoRegras();
+        private ModeloVeiculoRegras modeloveiculoregras = new ModeloVeiculoRegras();
 
         // GET: TabelaPrecos
         public ActionResult Index()
         {
-            var tabelaPrecos = db.TabelaPrecos.Include(t => t.TipoVeiculo);
-            return View(tabelaPrecos.ToList());
+            return View(tabelaprecoregras.buscarTodos());
         }
 
         // GET: TabelaPrecos/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TabelaPreco tabelaPreco = db.TabelaPrecos.Find(id);
+            TabelaPreco tabelaPreco = tabelaprecoregras.buscarporID(id);
             if (tabelaPreco == null)
             {
                 return HttpNotFound();
@@ -40,7 +32,7 @@ namespace Estacionamento.Controllers
         // GET: TabelaPrecos/Create
         public ActionResult Create()
         {
-            ViewBag.TipoVeiculoId = new SelectList(db.TipoVeiculos, "Id", "Nome");
+            ViewBag.TipoVeiculoId = new SelectList(tipoveiculoregras.buscarTodos(), "Id", "Nome");
             return View();
         }
 
@@ -53,28 +45,23 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.TabelaPrecos.Add(tabelaPreco);
-                db.SaveChanges();
+                tabelaprecoregras.Adicionar(tabelaPreco);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TipoVeiculoId = new SelectList(db.TipoVeiculos, "Id", "Nome", tabelaPreco.TipoVeiculoId);
+            ViewBag.TipoVeiculoId = new SelectList(tipoveiculoregras.buscarTodos(), "Id", "Nome", tabelaPreco.TipoVeiculoId);
             return View(tabelaPreco);
         }
 
         // GET: TabelaPrecos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TabelaPreco tabelaPreco = db.TabelaPrecos.Find(id);
+            TabelaPreco tabelaPreco = tabelaprecoregras.buscarporID(id);
             if (tabelaPreco == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.TipoVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Nome", tabelaPreco.TipoVeiculoId);
+            ViewBag.TipoVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Nome", tabelaPreco.TipoVeiculoId);
             return View(tabelaPreco);
         }
 
@@ -87,22 +74,17 @@ namespace Estacionamento.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tabelaPreco).State = EntityState.Modified;
-                db.SaveChanges();
+                tabelaprecoregras.Atualizar(tabelaPreco);
                 return RedirectToAction("Index");
             }
-            ViewBag.TipoVeiculoId = new SelectList(db.ModeloVeiculos, "Id", "Nome", tabelaPreco.TipoVeiculoId);
+            ViewBag.TipoVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Nome", tabelaPreco.TipoVeiculoId);
             return View(tabelaPreco);
         }
 
         // GET: TabelaPrecos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TabelaPreco tabelaPreco = db.TabelaPrecos.Find(id);
+            TabelaPreco tabelaPreco = tabelaprecoregras.buscarporID(id);
             if (tabelaPreco == null)
             {
                 return HttpNotFound();
@@ -115,19 +97,9 @@ namespace Estacionamento.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TabelaPreco tabelaPreco = db.TabelaPrecos.Find(id);
-            db.TabelaPrecos.Remove(tabelaPreco);
-            db.SaveChanges();
+            TabelaPreco tabelaPreco = tabelaprecoregras.buscarporID(id);
+            tabelaprecoregras.Remover(tabelaPreco);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
