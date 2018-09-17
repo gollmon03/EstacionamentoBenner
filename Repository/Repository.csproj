@@ -60,9 +60,9 @@
     <Compile Include="DAO\TipoVeiculoRepository.cs" />
     <Compile Include="DAO\UsuarioRepository.cs" />
     <Compile Include="DAO\VagaRepository.cs" />
-    <Compile Include="Migrations\201809111910541_Inicial.cs" />
-    <Compile Include="Migrations\201809111910541_Inicial.Designer.cs">
-      <DependentUpon>201809111910541_Inicial.cs</DependentUpon>
+    <Compile Include="Migrations\201809170039295_indifetente.cs" />
+    <Compile Include="Migrations\201809170039295_indifetente.Designer.cs">
+      <DependentUpon>201809170039295_indifetente.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,8 +78,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809111910541_Inicial.resx">
-      <DependentUpon>201809111910541_Inicial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809170039295_indifetente.resx">
+      <DependentUpon>201809170039295_indifetente.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

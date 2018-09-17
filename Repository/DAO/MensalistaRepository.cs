@@ -9,6 +9,9 @@ namespace Repository.DAO
 {
     public class MensalistaRepository : RepositoryBase<Mensalista>
     {
-
+        public Mensalista BuscaPorPlaca(string placa)
+        {
+            return Contexto.Mensalistas.Where(m => m.PlacaVeiculo == placa).FirstOrDefault();
+        }
     }
 }

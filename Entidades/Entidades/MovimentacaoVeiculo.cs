@@ -25,17 +25,17 @@ namespace Estacionamento.Models
         [Display(Name = "Placa do Veículo")]
         public string PlacaVeiculo { get; set; }
 
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [Display(Name = "Tipo de Veiculo")]
+        public int TipoVeiculoId { get; set; }
+        public TipoVeiculo TipoVeiculo { get; set; }
+
         public decimal ValorTotal { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Usuario")]
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
-
-        [Required(ErrorMessage = "Campo Obrigatório")]
-        [Display(Name = "Modelo do Veículo")]
-        public int ModeloVeiculoId { get; set; }
-        public ModeloVeiculo ModeloVeiculo { get; set; } 
 
         [Display(Name = "Mensalista")]
         public int? MensalistaId  { get; set; }
@@ -45,8 +45,6 @@ namespace Estacionamento.Models
         [Display(Name = "Vaga")]
         public int VagaId { get; set; }
         public Vaga Vaga { get; set; }
-
-        
 
     }
 }

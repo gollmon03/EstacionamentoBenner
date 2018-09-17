@@ -16,7 +16,7 @@ namespace Estacionamento.Models
 
        
         public virtual IList<TabelaPreco> TabelasPreco { get; set; }
-        public virtual IList<ModeloVeiculo> ModelosVeiculo { get; set; }
+        public virtual IList<TipoVeiculo> TipoVeiculos { get; set; }
         public virtual IList<Pessoa> Pessoas { get; set; }
         
     }

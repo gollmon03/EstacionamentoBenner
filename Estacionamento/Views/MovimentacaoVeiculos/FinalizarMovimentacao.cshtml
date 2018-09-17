@@ -1,0 +1,47 @@
+﻿@model Estacionamento.Models.MovimentacaoVeiculo
+
+@{
+    ViewBag.Title = "Finalizar Movimentacao";
+}
+
+<h2>Finalizar Movimentacao</h2>
+
+<div>
+    <p>Movimentação finaçizada com sucesso</p>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorTotal)
+        </dd>      
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataHoraEntrada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataHoraEntrada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataHoraSaida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataHoraSaida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlacaVeiculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlacaVeiculo)
+        </dd>
+    </dl>
+</div>
+
+@Html.ActionLink("Voltar para Lista", "Index")

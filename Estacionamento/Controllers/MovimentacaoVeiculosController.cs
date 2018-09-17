@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using Estacionamento.Models;
 using RegrasNegocio.Regras;
@@ -12,7 +13,8 @@ namespace Estacionamento.Controllers
         private ModeloVeiculoRegras modeloveiculoregras = new ModeloVeiculoRegras();
         private UsuarioRegras usuarioregras = new UsuarioRegras();
         private VagaRegras vagaregras = new VagaRegras();
-
+        private TipoVeiculoRegras tipoVeiculoRegras = new TipoVeiculoRegras();
+    
         // GET: MovimentacaoVeiculos
         public ActionResult Index()
         {
@@ -33,8 +35,9 @@ namespace Estacionamento.Controllers
         // GET: MovimentacaoVeiculos/Create
         public ActionResult Create()
         {
-            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Nome");
-            ViewBag.ModeloVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Marca");
+            var mensalita = mensalistaregras.buscarTodos();
+            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Id");
+            ViewBag.TipoVeiculoId = new SelectList(tipoVeiculoRegras.buscarTodos(), "Id", "Nome");
             ViewBag.UsuarioId = new SelectList(usuarioregras.buscarTodos(), "Id", "Nome");
             ViewBag.VagaId = new SelectList(vagaregras.buscarTodos(), "Id", "Numero");
             return View();
@@ -45,16 +48,24 @@ namespace Estacionamento.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DataHoraEntrada,DataHoraSaida,PlacaVeiculo,UsuarioId,ModeloVeiculoId,ClienteId,VagaId")] MovimentacaoVeiculo movimentacaoVeiculo)
+        public ActionResult Create(MovimentacaoVeiculo movimentacaoVeiculo)
         {
-            if (ModelState.IsValid)
+            try
             {
-                movimentacaoveiculoregras.Adicionar(movimentacaoVeiculo);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    movimentacaoveiculoregras.Adicionar(movimentacaoVeiculo);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (System.Exception exp)
+            {
+                ModelState.AddModelError(string.Empty, exp.Message);
+                
             }
 
-            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.MensalistaId);
-            ViewBag.ModeloVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Marca", movimentacaoVeiculo.ModeloVeiculoId);
+            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Id", movimentacaoVeiculo.MensalistaId);
+            ViewBag.TipoVeiculoId = new SelectList(tipoVeiculoRegras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.TipoVeiculoId);
             ViewBag.UsuarioId = new SelectList(usuarioregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.UsuarioId);
             ViewBag.VagaId = new SelectList(vagaregras.buscarTodos(), "Id", "Numero", movimentacaoVeiculo.VagaId);
             return View(movimentacaoVeiculo);
@@ -69,8 +80,8 @@ namespace Estacionamento.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.MensalistaId);
-            ViewBag.ModeloVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Marca", movimentacaoVeiculo.ModeloVeiculoId);
+            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Id", movimentacaoVeiculo.MensalistaId);
+            ViewBag.TipoVeiculoId = new SelectList(tipoVeiculoRegras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.TipoVeiculoId);
             ViewBag.UsuarioId = new SelectList(usuarioregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.UsuarioId);
             ViewBag.VagaId = new SelectList(vagaregras.buscarTodos(), "Id", "Numero", movimentacaoVeiculo.VagaId);
             return View(movimentacaoVeiculo);
@@ -89,8 +100,8 @@ namespace Estacionamento.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.MensalistaId);
-            ViewBag.ModeloVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Marca", movimentacaoVeiculo.ModeloVeiculoId);
+            ViewBag.MensalistaId = new SelectList(mensalistaregras.buscarTodos(), "Id", "Id", movimentacaoVeiculo.MensalistaId);
+            ViewBag.TipoVeiculoId = new SelectList(tipoVeiculoRegras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.TipoVeiculoId);
             ViewBag.UsuarioId = new SelectList(usuarioregras.buscarTodos(), "Id", "Nome", movimentacaoVeiculo.UsuarioId);
             ViewBag.VagaId = new SelectList(vagaregras.buscarTodos(), "Id", "Numero", movimentacaoVeiculo.VagaId);
             return View(movimentacaoVeiculo);
@@ -115,6 +126,28 @@ namespace Estacionamento.Controllers
             MovimentacaoVeiculo movimentacaoVeiculo = movimentacaoveiculoregras.buscarporID(id);
             movimentacaoveiculoregras.Remover(movimentacaoVeiculo);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult FinalizarMovimentacao(int id)
+        {
+            try
+            {
+                var movimentacao = movimentacaoveiculoregras.FinalizarMovimentacao(id);
+                return View(movimentacao);
+            }
+            catch (System.Exception exp)
+            {
+                ModelState.AddModelError(string.Empty, exp.Message);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult BuscaMensalistaPorPlaca(string placa)
+        {
+            var mensalista = mensalistaregras.BuscaPorPlaca(placa);
+            if (mensalista == null)
+                return Json("0", JsonRequestBehavior.AllowGet);
+            return Json(mensalista.Pessoa.Nome, JsonRequestBehavior.AllowGet);
         }
     }
 }

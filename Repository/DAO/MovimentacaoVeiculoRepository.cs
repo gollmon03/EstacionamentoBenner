@@ -9,6 +9,10 @@ namespace Repository.DAO
 {
     public class MovimentacaoVeiculoRepository : RepositoryBase<MovimentacaoVeiculo>
     {
-
+        public bool ExisteVeiculoCadastrdo(string placa)
+        {
+            var movimentacao = Contexto.MovimentacaoVeiculos.Where(v => v.PlacaVeiculo == placa && v.DataHoraSaida == null).ToList().FirstOrDefault();            
+            return movimentacao != null;
+        }
     }
 }

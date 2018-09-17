@@ -247,10 +247,12 @@
     <Content Include="Views\Mensalistas\Details.cshtml" />
     <Content Include="Views\Mensalistas\Edit.cshtml" />
     <Content Include="Views\Mensalistas\Index.cshtml" />
+    <Content Include="Views\MovimentacaoVeiculos\FinalizarMovimentacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Teste\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

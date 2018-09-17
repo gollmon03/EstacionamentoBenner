@@ -16,5 +16,13 @@ namespace RegrasNegocio.Regras
         {
             mensalistarepository = new MensalistaRepository();
         }
+
+        public Mensalista BuscaPorPlaca(string placa)
+        {
+            var mensalista = mensalistarepository.BuscaPorPlaca(placa);
+            if (mensalista != null)
+                mensalista.Pessoa = new PessoaRegras().buscarporID(mensalista.PessoaId);
+            return mensalista;
+        }
     }
 }

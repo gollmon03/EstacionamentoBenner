@@ -9,6 +9,9 @@ namespace Repository.DAO
 {
     public class TabelaPrecoRepository : RepositoryBase<TabelaPreco>
     {
-
+        public TabelaPreco BuscaPorIdTipoVeiculo(int tipoVeiculoId)
+        {
+            return Contexto.TabelaPrecos.Where(t => t.TipoVeiculoId == tipoVeiculoId).FirstOrDefault();
+        }
     }
 }

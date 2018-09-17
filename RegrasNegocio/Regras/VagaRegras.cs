@@ -16,5 +16,10 @@ namespace RegrasNegocio.Regras
         {
             vagarepository = new VagaRepository();
         }
+
+        public Vaga BuscarVagaLivre()
+        {
+            return vagarepository.BuscarVagaLivre();
+        }
     }
 }

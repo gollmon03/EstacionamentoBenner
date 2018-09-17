@@ -3,7 +3,7 @@ namespace Repository.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Inicial : DbMigration
+    public partial class indifetente : DbMigration
     {
         public override void Up()
         {
@@ -74,21 +74,49 @@ namespace Repository.Migrations
                         DataHoraEntrada = c.DateTime(nullable: false),
                         DataHoraSaida = c.DateTime(),
                         PlacaVeiculo = c.String(nullable: false, maxLength: 8000, unicode: false),
+                        TipoVeiculoId = c.Int(nullable: false),
                         ValorTotal = c.Decimal(nullable: false, precision: 18, scale: 2),
                         UsuarioId = c.Int(nullable: false),
-                        ModeloVeiculoId = c.Int(nullable: false),
                         MensalistaId = c.Int(),
                         VagaId = c.Int(nullable: false),
+                        ModeloVeiculo_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Mensalista", t => t.MensalistaId)
-                .ForeignKey("dbo.ModeloVeiculo", t => t.ModeloVeiculoId, cascadeDelete: true)
+                .ForeignKey("dbo.TipoVeiculo", t => t.TipoVeiculoId, cascadeDelete: true)
                 .ForeignKey("dbo.Usuario", t => t.UsuarioId, cascadeDelete: true)
                 .ForeignKey("dbo.Vaga", t => t.VagaId, cascadeDelete: true)
+                .ForeignKey("dbo.ModeloVeiculo", t => t.ModeloVeiculo_Id)
+                .Index(t => t.TipoVeiculoId)
                 .Index(t => t.UsuarioId)
-                .Index(t => t.ModeloVeiculoId)
                 .Index(t => t.MensalistaId)
-                .Index(t => t.VagaId);
+                .Index(t => t.VagaId)
+                .Index(t => t.ModeloVeiculo_Id);
+            
+            CreateTable(
+                "dbo.TipoVeiculo",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Nome = c.String(nullable: false, maxLength: 60, unicode: false),
+                        TipoVeiculo_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.TipoVeiculo", t => t.TipoVeiculo_Id)
+                .Index(t => t.TipoVeiculo_Id);
+            
+            CreateTable(
+                "dbo.TabelaPreco",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Nome = c.String(nullable: false, maxLength: 60, unicode: false),
+                        ValorHora = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        TipoVeiculoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.TipoVeiculo", t => t.TipoVeiculoId, cascadeDelete: true)
+                .Index(t => t.TipoVeiculoId);
             
             CreateTable(
                 "dbo.Usuario",
@@ -126,59 +154,41 @@ namespace Repository.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
-            CreateTable(
-                "dbo.TipoVeiculo",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Nome = c.String(nullable: false, maxLength: 60, unicode: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.TabelaPreco",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Nome = c.String(nullable: false, maxLength: 60, unicode: false),
-                        ValorHora = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        TipoVeiculoId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.TipoVeiculo", t => t.TipoVeiculoId, cascadeDelete: true)
-                .Index(t => t.TipoVeiculoId);
-            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.DocumentoFinanceiro", "PessoaId", "dbo.Pessoa");
             DropForeignKey("dbo.Mensalista", "PessoaId", "dbo.Pessoa");
-            DropForeignKey("dbo.TabelaPreco", "TipoVeiculoId", "dbo.TipoVeiculo");
-            DropForeignKey("dbo.Pessoa", "TipoVeiculo_Id", "dbo.TipoVeiculo");
             DropForeignKey("dbo.ModeloVeiculo", "TipoVeiculoId", "dbo.TipoVeiculo");
+            DropForeignKey("dbo.MovimentacaoVeiculo", "ModeloVeiculo_Id", "dbo.ModeloVeiculo");
             DropForeignKey("dbo.Vaga", "SetorId", "dbo.Setor");
             DropForeignKey("dbo.MovimentacaoVeiculo", "VagaId", "dbo.Vaga");
             DropForeignKey("dbo.MovimentacaoVeiculo", "UsuarioId", "dbo.Usuario");
-            DropForeignKey("dbo.MovimentacaoVeiculo", "ModeloVeiculoId", "dbo.ModeloVeiculo");
+            DropForeignKey("dbo.MovimentacaoVeiculo", "TipoVeiculoId", "dbo.TipoVeiculo");
+            DropForeignKey("dbo.TipoVeiculo", "TipoVeiculo_Id", "dbo.TipoVeiculo");
+            DropForeignKey("dbo.TabelaPreco", "TipoVeiculoId", "dbo.TipoVeiculo");
+            DropForeignKey("dbo.Pessoa", "TipoVeiculo_Id", "dbo.TipoVeiculo");
             DropForeignKey("dbo.MovimentacaoVeiculo", "MensalistaId", "dbo.Mensalista");
             DropForeignKey("dbo.Mensalista", "ModeloVeiculoId", "dbo.ModeloVeiculo");
-            DropIndex("dbo.TabelaPreco", new[] { "TipoVeiculoId" });
             DropIndex("dbo.Vaga", new[] { "SetorId" });
+            DropIndex("dbo.TabelaPreco", new[] { "TipoVeiculoId" });
+            DropIndex("dbo.TipoVeiculo", new[] { "TipoVeiculo_Id" });
+            DropIndex("dbo.MovimentacaoVeiculo", new[] { "ModeloVeiculo_Id" });
             DropIndex("dbo.MovimentacaoVeiculo", new[] { "VagaId" });
             DropIndex("dbo.MovimentacaoVeiculo", new[] { "MensalistaId" });
-            DropIndex("dbo.MovimentacaoVeiculo", new[] { "ModeloVeiculoId" });
             DropIndex("dbo.MovimentacaoVeiculo", new[] { "UsuarioId" });
+            DropIndex("dbo.MovimentacaoVeiculo", new[] { "TipoVeiculoId" });
             DropIndex("dbo.ModeloVeiculo", new[] { "TipoVeiculoId" });
             DropIndex("dbo.Mensalista", new[] { "ModeloVeiculoId" });
             DropIndex("dbo.Mensalista", new[] { "PessoaId" });
             DropIndex("dbo.Pessoa", new[] { "TipoVeiculo_Id" });
             DropIndex("dbo.DocumentoFinanceiro", new[] { "PessoaId" });
-            DropTable("dbo.TabelaPreco");
-            DropTable("dbo.TipoVeiculo");
             DropTable("dbo.Setor");
             DropTable("dbo.Vaga");
             DropTable("dbo.Usuario");
+            DropTable("dbo.TabelaPreco");
+            DropTable("dbo.TipoVeiculo");
             DropTable("dbo.MovimentacaoVeiculo");
             DropTable("dbo.ModeloVeiculo");
             DropTable("dbo.Mensalista");

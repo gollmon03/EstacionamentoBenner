@@ -6,30 +6,14 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>MovimentacaoVeiculo</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataHoraEntrada, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataHoraEntrada, new { htmlAttributes = new { @class = "form-control" , @type = "datetime-local" } })
-                @Html.ValidationMessageFor(model => model.DataHoraEntrada, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataHoraSaida, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataHoraSaida, new { htmlAttributes = new { @class = "form-control" , @type = "datetime-local" } })
-                @Html.ValidationMessageFor(model => model.DataHoraSaida, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.PlacaVeiculo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -39,34 +23,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UsuarioId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UsuarioId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UsuarioId, "", new { @class = "text-danger" })
-            </div>
+            <label id="mensalista">Nenhum mensalista com está placa</label>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ModeloVeiculoId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ModeloVeiculoId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ModeloVeiculoId, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ClienteId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" id="tipoVeiculoClass">
+            @Html.LabelFor(model => model.TipoVeiculoId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ClienteId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ClienteId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.VagaId,  htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("VagaId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.VagaId, "", new { @class = "text-danger" })
+                @Html.DropDownList("TipoVeiculoId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TipoVeiculoId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -81,3 +46,29 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    $("#PlacaVeiculo").focusout(function () {
+        $.ajax({
+            url: "/MovimentacaoVeiculos/BuscaMensalistaPorPlaca",
+            data: { placa: $(this).val() },
+            success: function (result) {
+                if (result === '0') {
+                    $("#mensalista").text("Nenhum mensalista com está placa")
+                    $("#tipoVeiculoClass").show();
+                }
+                else {
+                    $("#mensalista").text("Mensalista: " + result);
+                    $("#tipoVeiculoClass").hide();
+                }
+            }
+        })
+
+    });
+
+    function PreencheMensalista(data) {
+        console.log(data);
+    }
+</script>
