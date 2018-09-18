@@ -147,6 +147,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FechamentoMesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MensalistasController.cs" />
@@ -248,6 +249,8 @@
     <Content Include="Views\Mensalistas\Edit.cshtml" />
     <Content Include="Views\Mensalistas\Index.cshtml" />
     <Content Include="Views\MovimentacaoVeiculos\FinalizarMovimentacao.cshtml" />
+    <Content Include="Views\Home\FinalizarMovimentacao.cshtml" />
+    <Content Include="Views\FechamentoMes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

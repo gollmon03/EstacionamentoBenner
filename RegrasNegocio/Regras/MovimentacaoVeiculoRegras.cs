@@ -44,6 +44,17 @@ namespace RegrasNegocio.Regras
             base.Adicionar(entidade);
         }
 
+        internal decimal CalculaValorTotalVeiculos(DateTime data)
+        {
+            var valorTotal = 0m;
+            IList<MovimentacaoVeiculo> movimentacoesSemMensalista = movimentacaoveiculorepository.BuscaTodosSemMensalitaPorMes(data);
+            foreach (var item in movimentacoesSemMensalista)
+            {
+                valorTotal += item.ValorTotal;
+            }
+            return valorTotal;
+        }
+
         public MovimentacaoVeiculo FinalizarMovimentacao(int id)
         {                       
             var movimentacao = movimentacaoveiculorepository.buscarporID(id);
@@ -70,6 +81,22 @@ namespace RegrasNegocio.Regras
 
             return (Convert.ToDecimal(tempoEstacionado.Value.TotalHours) * tabelaPreco.ValorHora) *-1;
             
+        }
+
+        public IList<MovimentacaoVeiculo> BuscaTodosAtivos()
+        {
+            var movimentacoes = movimentacaoveiculorepository.BuscaTodosAtivos();
+            foreach (var item in movimentacoes)
+            {
+                item.Vaga = new VagaRegras().buscarporID(item.VagaId);
+                item.Vaga.Setor = new SetorRegras().buscarporID(item.Vaga.SetorId);
+                if (item.MensalistaId != null)
+                {
+                    item.Mensalista = new MensalistaRegras().buscarporID((int)item.MensalistaId);
+                    item.Mensalista.ModeloVeiculo = new ModeloVeiculoRegras().buscarporID(item.Mensalista.ModeloVeiculoId);
+                }                    
+            }
+            return movimentacoes;
         }
     }
 }

@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("GerarDocumento", "FechamentoMes"))
+{
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2">Mês</label>
+        <div class="col-md-10">
+            <input name="mes" id="mes" type="date" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group" id="tipoVeiculoClass">
+        <label class="control-label col-md-2">Tipo</label>
+        <div class="col-md-10">
+            <select name="tipo" id="tipo" class="form-control" onchange="atualizaMensalista(this)">
+                <option value="1">Mensalista</option>
+                <option value="2">Veiculos</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group" id="divMensalista">
+        <label class="control-label col-md-2">Mensalista</label>
+        <div class="col-md-10">            
+            @Html.DropDownList("MensalistaId", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+   
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Gerar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    function atualizaMensalista(item) {
+        console.log(item.value)
+        if (item.value == "2")
+            $("#divMensalista").fadeOut()
+        else
+            $("#divMensalista").fadeIn()
+    }    
+</script>
+

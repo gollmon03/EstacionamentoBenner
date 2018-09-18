@@ -17,12 +17,30 @@ namespace RegrasNegocio.Regras
             mensalistarepository = new MensalistaRepository();
         }
 
+        public override Mensalista buscarporID(int Id)
+        {
+            var mensalista = base.buscarporID(Id);
+            mensalista.Pessoa = new PessoaRegras().buscarporID(mensalista.PessoaId);
+            return mensalista;
+        }
+
         public Mensalista BuscaPorPlaca(string placa)
         {
             var mensalista = mensalistarepository.BuscaPorPlaca(placa);
             if (mensalista != null)
                 mensalista.Pessoa = new PessoaRegras().buscarporID(mensalista.PessoaId);
             return mensalista;
+        }
+
+        public override IList<Mensalista> buscarTodos()
+        {
+            var mensalistas = base.buscarTodos();
+
+            foreach (var item in mensalistas)
+            {
+                item.Pessoa = new PessoaRegras().buscarporID(item.PessoaId);
+            }
+            return mensalistas;
         }
     }
 }

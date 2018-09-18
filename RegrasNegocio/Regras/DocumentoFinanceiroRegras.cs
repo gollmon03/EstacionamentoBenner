@@ -16,5 +16,47 @@ namespace RegrasNegocio.Regras
         {
             documentofinanceirorepository = new DocumentoFinanceiroRepository();
         }
+
+        public void Gerar(DateTime data, string tipo, int mensalistaId)
+        {
+            var documentoFinanceiro = new DocumentoFinanceiro()
+            {
+                Data = DateTime.Now,
+                Tipo = "Contas a receber",
+                DataVencimento = DateTime.Now,
+                Status = "Processado",
+                DataProcessamento = DateTime.Now
+            };
+
+            switch (tipo)
+            {
+                case "2":
+                    GerarTipoVeiculo(documentoFinanceiro, data);
+                    break;
+                case "1":
+                    GerarTipoMensalista(documentoFinanceiro, mensalistaId, data);
+                    break;
+            }
+        }
+
+        private void GerarTipoMensalista(DocumentoFinanceiro documentoFinanceiro, int mensalistaId, DateTime data)
+        {
+            var mensalista = new MensalistaRegras().buscarporID(mensalistaId);
+
+            documentoFinanceiro.PessoaId = mensalista.Pessoa.Id;
+            documentoFinanceiro.NumeroDocumento = data.Month.ToString() + data.Year + mensalista.Id;
+            documentoFinanceiro.Valor = mensalista.ValorMensal;
+
+            Adicionar(documentoFinanceiro);
+        }
+
+        private void GerarTipoVeiculo(DocumentoFinanceiro documentoFinanceiro, DateTime data)
+        {
+            documentoFinanceiro.NumeroDocumento = data.Month.ToString() + data.Year.ToString();
+            documentoFinanceiro.Valor = new MovimentacaoVeiculoRegras().CalculaValorTotalVeiculos(data);
+            documentoFinanceiro.PessoaId = 1;
+
+            Adicionar(documentoFinanceiro);
+        }
     }
 }

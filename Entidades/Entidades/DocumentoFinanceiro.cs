@@ -34,5 +34,10 @@ namespace Estacionamento.Models
         [Display(Name = "Data do Processamento")]
         public DateTime DataProcessamento { get; set; }
 
+        public string Tipo { get; set; }
+
+        public string Status { get; set; }
+
+        public string NumeroDocumento { get; set; }
     }
 }

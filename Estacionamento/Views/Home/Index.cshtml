@@ -1,8 +1,51 @@
-﻿@{
+﻿@model IEnumerable<Estacionamento.Models.MovimentacaoVeiculo>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<h3>Movimentação</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DataHoraEntrada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mensalista.ModeloVeiculo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlacaVeiculo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vaga.Setor)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataHoraEntrada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mensalista.ModeloVeiculo.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlacaVeiculo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vaga.Setor.Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Finalizar Movimentacao", "FinalizarMovimentacao", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*<div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
@@ -28,4 +71,4 @@
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
-</div>
+</div>*@

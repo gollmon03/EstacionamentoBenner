@@ -14,5 +14,17 @@ namespace Repository.DAO
             var movimentacao = Contexto.MovimentacaoVeiculos.Where(v => v.PlacaVeiculo == placa && v.DataHoraSaida == null).ToList().FirstOrDefault();            
             return movimentacao != null;
         }
+
+        public IList<MovimentacaoVeiculo> BuscaTodosAtivos()
+        {
+            return Contexto.MovimentacaoVeiculos.Where(m => m.DataHoraSaida == null).ToList();
+        }
+
+        public IList<MovimentacaoVeiculo> BuscaTodosSemMensalitaPorMes(DateTime data)
+        {
+            return Contexto.MovimentacaoVeiculos.Where(m => m.MensalistaId == null && 
+                                                            m.DataHoraSaida.Value.Month == data.Month &&
+                                                            m.DataHoraSaida.Value.Year == data.Year).ToList();
+        }
     }
 }

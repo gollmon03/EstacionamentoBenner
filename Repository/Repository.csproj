@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201809170039295_indifetente.Designer.cs">
       <DependentUpon>201809170039295_indifetente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809181911264_DocFinc.cs" />
+    <Compile Include="Migrations\201809181911264_DocFinc.Designer.cs">
+      <DependentUpon>201809181911264_DocFinc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,6 +84,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809170039295_indifetente.resx">
       <DependentUpon>201809170039295_indifetente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809181911264_DocFinc.resx">
+      <DependentUpon>201809181911264_DocFinc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
