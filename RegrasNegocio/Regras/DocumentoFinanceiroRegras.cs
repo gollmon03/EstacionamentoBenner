@@ -54,7 +54,7 @@ namespace RegrasNegocio.Regras
         {
             documentoFinanceiro.NumeroDocumento = data.Month.ToString() + data.Year.ToString();
             documentoFinanceiro.Valor = new MovimentacaoVeiculoRegras().CalculaValorTotalVeiculos(data);
-            documentoFinanceiro.PessoaId = 1;
+            documentoFinanceiro.PessoaId = new PessoaRegras().BuscaPorNome("Pessoa Anonima").Id;
 
             Adicionar(documentoFinanceiro);
         }

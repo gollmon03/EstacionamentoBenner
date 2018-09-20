@@ -4,6 +4,7 @@ namespace Repository.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Estacionamento.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Estacionamento.Contexto.EstacionamentoContexto>
     {
@@ -18,6 +19,13 @@ namespace Repository.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
+            context.Pessoas.AddOrUpdate(new Pessoa()
+            {
+                Nome = "Pessoa Anonima",
+                Tipo = 0,
+                Cpf = "00000000000"                
+            });
         }
 
         public void FixEfProviderServicesProblem()

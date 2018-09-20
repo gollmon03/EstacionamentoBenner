@@ -9,6 +9,9 @@ namespace Repository.DAO
 {
     public class PessoaRepository : RepositoryBase<Pessoa>
     {
-
+        public Pessoa BuscaPorNome(string nome)
+        {
+            return Contexto.Pessoas.Where(p => p.Nome == nome).FirstOrDefault();
+        }
     }
 }

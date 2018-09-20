@@ -29,5 +29,10 @@ namespace RegrasNegocio.Regras
             }
             base.Adicionar(entidade);
         }
+
+        internal Pessoa BuscaPorNome(string nome)
+        {
+            return pessoarepository.BuscaPorNome(nome);
+        }
     }
 }

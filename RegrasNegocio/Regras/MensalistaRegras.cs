@@ -39,6 +39,9 @@ namespace RegrasNegocio.Regras
             foreach (var item in mensalistas)
             {
                 item.Pessoa = new PessoaRegras().buscarporID(item.PessoaId);
+                item.ModeloVeiculo = new ModeloVeiculoRegras().buscarporID(item.ModeloVeiculoId);
+                
+
             }
             return mensalistas;
         }
