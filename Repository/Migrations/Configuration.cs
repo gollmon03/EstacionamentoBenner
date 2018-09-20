@@ -20,12 +20,15 @@ namespace Repository.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            context.Pessoas.AddOrUpdate(new Pessoa()
+            if (context.Pessoas.Where(p => p.Nome == "Pessoa Anonima").FirstOrDefault() == null)
             {
-                Nome = "Pessoa Anonima",
-                Tipo = 0,
-                Cpf = "00000000000"                
-            });
+                context.Pessoas.Add(new Pessoa()
+                {
+                    Nome = "Pessoa Anonima",
+                    Tipo = 0,
+                    Cpf = "00000000000"
+                });
+            }
         }
 
         public void FixEfProviderServicesProblem()

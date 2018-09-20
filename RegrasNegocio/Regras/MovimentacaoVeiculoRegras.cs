@@ -24,7 +24,10 @@ namespace RegrasNegocio.Regras
             var mensalista = new MensalistaRegras().BuscaPorPlaca(entidade.PlacaVeiculo);
 
             if (mensalista != null)
-            {                
+            {
+                if (new MensalistaRegras().EstaInadinplente(mensalista))
+                    throw new Exception($"Mensalista {mensalista.Pessoa.Nome} está inadimplente");
+
                 var modeloVeiculo = new ModeloVeiculoRegras().buscarporID(mensalista.ModeloVeiculoId);
                 entidade.TipoVeiculoId = modeloVeiculo.TipoVeiculoId;
                 entidade.PlacaVeiculo = mensalista.PlacaVeiculo;
@@ -42,7 +45,7 @@ namespace RegrasNegocio.Regras
             entidade.UsuarioId = 1;
 
             base.Adicionar(entidade);
-        }
+        }        
 
         internal decimal CalculaValorTotalVeiculos(DateTime data)
         {

@@ -50,6 +50,11 @@ namespace RegrasNegocio.Regras
             Adicionar(documentoFinanceiro);
         }
 
+        internal IList<DocumentoFinanceiro> BuscaProcessadosPorPessoa(int pessoaId)
+        {
+            return documentofinanceirorepository.BuscaProcessadosPorPessoa(pessoaId);
+        }
+
         private void GerarTipoVeiculo(DocumentoFinanceiro documentoFinanceiro, DateTime data)
         {
             documentoFinanceiro.NumeroDocumento = data.Month.ToString() + data.Year.ToString();

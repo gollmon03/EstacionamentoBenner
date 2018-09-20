@@ -45,5 +45,18 @@ namespace RegrasNegocio.Regras
             }
             return mensalistas;
         }
+
+        internal bool EstaInadinplente(Mensalista mensalista)
+        {
+            var documentosFinanceiros = new DocumentoFinanceiroRegras().BuscaProcessadosPorPessoa(mensalista.Pessoa.Id);
+            foreach (var item in documentosFinanceiros)
+            {
+                if (item.DataVencimento.Month == DateTime.Now.Month)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

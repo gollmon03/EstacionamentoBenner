@@ -20,14 +20,10 @@ namespace Estacionamento.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Index(String login, String senha)
+        public ActionResult Index(string login, string senha)
         {
 
-            var funcionario = new Usuario()
-            {
-                Login = "thiago",
-                Senha = "thiago"
-            };
+            var funcionario = usuarioregras.BuscaPorLoginESenha(login, senha);
 
             if (funcionario != null)
             {

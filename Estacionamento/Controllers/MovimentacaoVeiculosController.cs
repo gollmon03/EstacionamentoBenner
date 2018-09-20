@@ -1,11 +1,13 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Estacionamento.Filtro;
 using Estacionamento.Models;
 using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
+    [AutorizacaoFilter]
     public class MovimentacaoVeiculosController : Controller
     {
         private MovimentacaoVeiculoRegras movimentacaoveiculoregras = new MovimentacaoVeiculoRegras();

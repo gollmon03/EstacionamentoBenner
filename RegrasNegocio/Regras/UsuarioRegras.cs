@@ -16,5 +16,10 @@ namespace RegrasNegocio.Regras
         {
             usuariorepository = new UsuarioRepository();
         }
+
+        public Usuario BuscaPorLoginESenha(string login, string senha)
+        {
+            return usuariorepository.BuscaPorLoginESenha(login, senha);
+        }
     }
 }

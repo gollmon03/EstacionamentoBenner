@@ -9,6 +9,9 @@ namespace Repository.DAO
 {
     public class DocumentoFinanceiroRepository : RepositoryBase<DocumentoFinanceiro>
     {
-
+        public IList<DocumentoFinanceiro> BuscaProcessadosPorPessoa(int pessoaId)
+        {
+            return Contexto.DocumentosFinanceiro.Where(d =>  d.Status == "Processado" && d.PessoaId == pessoaId).ToList();
+        }
     }
 }
