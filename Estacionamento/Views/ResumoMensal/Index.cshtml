@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<input type="date" id="data"/>
+<button onclick="Filtrar()">Filtrar</button>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            Data
+        </div>
+        <div class="col-md-2">
+            Data Processamento
+        </div>
+        <div class="col-md-2">
+            Data Vencimento
+        </div>
+        <div class="col-md-2">
+            Numero Documento
+        </div>
+        <div class="col-md-1">
+            Pessoa
+        </div>
+        <div class="col-md-1">
+            Status
+        </div>
+        <div class="col-md-1">
+            Tipo
+        </div>
+        <div class="col-md-1">
+            Valor
+        </div>
+        <hr />
+
+        <div id="dados">
+            <div class="campos">
+                <!--fields-->
+                <div class="col-md-2">
+                    10/10/2010 10:21:32
+                </div>
+                <div class="col-md-2">
+                    10/10/2010 10:21:32
+                </div>
+                <div class="col-md-2">
+                    10/10/2010 10:21:32
+                </div>
+                <div class="col-md-2">
+                    080998
+                </div>
+                <div class="col-md-1">
+                    Lucas de Souza
+                </div>
+                <div class="col-md-1">
+                    Finalizado
+                </div>
+                <div class="col-md-1">
+                    Contas a receber
+                </div>
+                <div class="col-md-1">
+                    1200,00
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function Filtrar() {
+        var data = $("#data").val();
+        console.log(data);
+
+        $.ajax({
+            url: "/ResumoMensal/BuscaDocFianaceiro",
+            data: { data: data },
+            success: function (result) {
+                $(".campos").remove();
+                $(result).each(function (i, item) {                    
+                    AdicionaCampo(item);
+                })                
+            }
+        })
+    }
+
+    function AdicionaCampo(item) {
+        var campo = $('<div>', {
+            class: 'campos'            
+        })
+
+        $('<div>', {
+            class: 'col-md-2',
+            text: item.Data
+        }).appendTo(campo);
+
+        $('<div>', {
+            class: 'col-md-2',
+            text: item.DataProcessamento
+        }).appendTo(campo);
+
+        $('<div>', {
+            class: 'col-md-2',
+            text: item.DataVencimento
+        }).appendTo(campo);
+
+        $('<div>', {
+            class: 'col-md-2',
+            text: item.NumeroDocumento
+        }).appendTo(campo);
+
+        $('<div>', {
+            class: 'col-md-1',
+            text: item.Pessoa
+        }).appendTo(campo);
+
+        $('<div>', {
+            class: 'col-md-1',
+            text: item.Status
+        }).appendTo(campo);
+
+        $('<div>', {
+            class: 'col-md-1',
+            text: item.Tipo
+        }).appendTo(campo);
+
+        $('<div>', {
+            class: 'col-md-1',
+            text: item.Valor
+        }).appendTo(campo);
+
+        campo.appendTo("#dados")
+
+        console.log(item.Data.replace("/", "").replace("/", ""))
+        var data = new Date(item.Data.replace("/", "").replace("/", ""));
+        console.log(data);
+    }
+</script>

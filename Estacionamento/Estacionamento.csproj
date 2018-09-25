@@ -154,6 +154,7 @@
     <Compile Include="Controllers\ModeloVeiculosController.cs" />
     <Compile Include="Controllers\MovimentacaoVeiculosController.cs" />
     <Compile Include="Controllers\PessoasController.cs" />
+    <Compile Include="Controllers\ResumoMensalController.cs" />
     <Compile Include="Controllers\SetoresController.cs" />
     <Compile Include="Controllers\TabelaPrecosController.cs" />
     <Compile Include="Controllers\TipoVeiculosController.cs" />
@@ -250,12 +251,12 @@
     <Content Include="Views\Mensalistas\Index.cshtml" />
     <Content Include="Views\MovimentacaoVeiculos\FinalizarMovimentacao.cshtml" />
     <Content Include="Views\Home\FinalizarMovimentacao.cshtml" />
-    <Content Include="Views\FechamentoMes\GerarDocumento.cshtml" />
+    <Content Include="Views\FechamentoMes\Index.cshtml" />
+    <Content Include="Views\ResumoMensal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Teste\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

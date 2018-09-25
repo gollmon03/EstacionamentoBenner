@@ -10,11 +10,10 @@ namespace Estacionamento.Models
     {
         [Key]
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Campo Obrigatório")]
+        
         [DataType(DataType.DateTime)]
         [Display(Name = "Hora Entrada")]
-        public DateTime DataHoraEntrada { get; set; }
+        public DateTime? DataHoraEntrada { get; set; }
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Hora Saida")]

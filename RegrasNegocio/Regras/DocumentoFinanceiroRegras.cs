@@ -39,6 +39,11 @@ namespace RegrasNegocio.Regras
             }
         }
 
+        public IList<DocumentoFinanceiro> BuscaPorData(DateTime data)
+        {
+            return documentofinanceirorepository.BuscaPorData(data);
+        }
+
         private void GerarTipoMensalista(DocumentoFinanceiro documentoFinanceiro, int mensalistaId, DateTime data)
         {
             var mensalista = new MensalistaRegras().buscarporID(mensalistaId);

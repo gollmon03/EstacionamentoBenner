@@ -20,7 +20,8 @@ namespace Estacionamento.Controllers
         // GET: MovimentacaoVeiculos
         public ActionResult Index()
         {
-            return View(movimentacaoveiculoregras.buscarTodos());         
+            var movimentacoes = movimentacaoveiculoregras.buscarTodos();
+            return View(movimentacoes);         
         }
 
         // GET: MovimentacaoVeiculos/Details/5

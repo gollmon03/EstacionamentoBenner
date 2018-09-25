@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201809181911264_DocFinc.Designer.cs">
       <DependentUpon>201809181911264_DocFinc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809241811504_eee.cs" />
+    <Compile Include="Migrations\201809241811504_eee.Designer.cs">
+      <DependentUpon>201809241811504_eee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -87,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809181911264_DocFinc.resx">
       <DependentUpon>201809181911264_DocFinc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809241811504_eee.resx">
+      <DependentUpon>201809241811504_eee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

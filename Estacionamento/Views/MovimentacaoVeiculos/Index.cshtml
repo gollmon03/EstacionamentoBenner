@@ -20,6 +20,12 @@
         <th>
             @Html.DisplayNameFor(model => model.PlacaVeiculo)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vaga.Setor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vaga)
+        </th>
         <th></th>
     </tr>
 
@@ -35,9 +41,15 @@
             @Html.DisplayFor(modelItem => item.PlacaVeiculo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
+            @Html.DisplayFor(modelItem => item.Vaga.Setor.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vaga.Numero)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
             @Html.ActionLink("Finalizar Movimentacao", "FinalizarMovimentacao", new { id = item.Id })
         </td>
     </tr>

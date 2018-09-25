@@ -35,11 +35,14 @@ namespace RegrasNegocio.Regras
                 entidade.ValorTotal = 0m;
             }
 
-            entidade.DataHoraEntrada = DateTime.Now;
-            var vaga = new VagaRegras().BuscarVagaLivre().Id;
-            if (vaga == 0)
+            if (entidade.DataHoraEntrada == null)
+                entidade.DataHoraEntrada = DateTime.Now;
+
+            var vaga = new VagaRegras().BuscarVagaLivre();
+            if (vaga == null)
                 throw new Exception("Não ha vaga disponivel no momento");
-            entidade.VagaId = vaga;
+            entidade.VagaId = vaga.Id;
+
             if (movimentacaoveiculorepository.ExisteVeiculoCadastrdo(entidade.PlacaVeiculo))
                 throw new Exception("Já existe uma movimentação com este veiculo");
             entidade.UsuarioId = 1;
@@ -86,9 +89,20 @@ namespace RegrasNegocio.Regras
             
         }
 
+        public override IList<MovimentacaoVeiculo> buscarTodos()
+        {
+            var movimentacoes = base.buscarTodos();
+            return MontaDadosFaltando(movimentacoes);
+        }
+
         public IList<MovimentacaoVeiculo> BuscaTodosAtivos()
         {
             var movimentacoes = movimentacaoveiculorepository.BuscaTodosAtivos();
+            return MontaDadosFaltando(movimentacoes);             
+        }
+
+        private IList<MovimentacaoVeiculo> MontaDadosFaltando(IList<MovimentacaoVeiculo> movimentacoes)
+        {
             foreach (var item in movimentacoes)
             {
                 item.Vaga = new VagaRegras().buscarporID(item.VagaId);
@@ -97,9 +111,10 @@ namespace RegrasNegocio.Regras
                 {
                     item.Mensalista = new MensalistaRegras().buscarporID((int)item.MensalistaId);
                     item.Mensalista.ModeloVeiculo = new ModeloVeiculoRegras().buscarporID(item.Mensalista.ModeloVeiculoId);
-                }                    
+                }
             }
             return movimentacoes;
         }
+
     }
 }

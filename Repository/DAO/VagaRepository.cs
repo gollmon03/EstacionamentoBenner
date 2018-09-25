@@ -11,8 +11,14 @@ namespace Repository.DAO
     public class VagaRepository : RepositoryBase<Vaga>
     {
         public Vaga BuscarVagaLivre()
-        {           
-            return Contexto.Vagas.Where(v => v.Situacao == TipoSituacao.Disponivel).FirstOrDefault();            
+        {
+            return Contexto.Vagas.SqlQuery("SELECT v.* " +
+                                             "FROM Vaga v " +
+                                            "WHERE v.Situacao = 0 " +
+                                              "AND v.Id not in " +
+                                                       "(SELECT mv.VagaId " +
+                                                          "FROM MovimentacaoVeiculo mv " +
+                                                         "WHERE mv.DataHoraSaida is null)").FirstOrDefault();
         }
     }
 }

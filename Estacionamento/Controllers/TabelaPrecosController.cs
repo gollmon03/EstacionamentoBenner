@@ -45,10 +45,17 @@ namespace Estacionamento.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,ValorHora,TipoVeiculoId")] TabelaPreco tabelaPreco)
         {
-            if (ModelState.IsValid)
+            try
             {
-                tabelaprecoregras.Adicionar(tabelaPreco);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    tabelaprecoregras.Adicionar(tabelaPreco);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (System.Exception exp)
+            {
+                ModelState.AddModelError(string.Empty, exp.Message);
             }
 
             ViewBag.TipoVeiculoId = new SelectList(tipoveiculoregras.buscarTodos(), "Id", "Nome", tabelaPreco.TipoVeiculoId);
