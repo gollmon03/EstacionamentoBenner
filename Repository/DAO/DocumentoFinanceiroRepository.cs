@@ -13,5 +13,10 @@ namespace Repository.DAO
         {
             return Contexto.DocumentosFinanceiro.Where(d =>  d.Status == "Processado" && d.PessoaId == pessoaId).ToList();
         }
+
+        public IList<DocumentoFinanceiro> BuscaPorData(DateTime data)
+        {
+            return Contexto.DocumentosFinanceiro.Where(d => d.Data.Month == data.Month && d.Data.Year == data.Year).ToList();
+        }
     }
 }

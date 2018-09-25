@@ -92,17 +92,17 @@
 
         $('<div>', {
             class: 'col-md-2',
-            text: item.Data
+            text: MontaData(item.Data)
         }).appendTo(campo);
 
         $('<div>', {
             class: 'col-md-2',
-            text: item.DataProcessamento
+            text: MontaData(item.DataProcessamento)
         }).appendTo(campo);
 
         $('<div>', {
             class: 'col-md-2',
-            text: item.DataVencimento
+            text: MontaData(item.DataVencimento)
         }).appendTo(campo);
 
         $('<div>', {
@@ -132,8 +132,14 @@
 
         campo.appendTo("#dados")
 
-        console.log(item.Data.replace("/", "").replace("/", ""))
-        var data = new Date(item.Data.replace("/", "").replace("/", ""));
-        console.log(data);
+        var strData = item.Data.slice(6, 19);
+        console.log(strData)                        
+    }
+
+    function MontaData(strData) {
+        var strDataEdit = strData.slice(6, 19);
+        var data = new Date();
+        data.setTime(strDataEdit);
+        return data.toLocaleDateString() + " " + data.toLocaleTimeString();
     }
 </script>
