@@ -4,18 +4,17 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalhes</h2>
+<h2>Detalhes da Vaga</h2>
 
 <div>
-    <h4>Vagas</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.setor.Nome)
+            @Html.DisplayNameFor(model => model.Setor.Nome)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.setor.Nome)
+            @Html.DisplayFor(model => model.Setor.Nome)
         </dd>
 
         <dt>
@@ -37,6 +36,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Voltar para a lista", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" }) |
+    @Html.ActionLink("Voltar para a página", "Index", null, new { @class = "btn btn-warning btn-sm" })
 </p>

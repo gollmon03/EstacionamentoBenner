@@ -7,7 +7,8 @@
 <h2>Setores</h2>
 
 <p>
-    @Html.ActionLink("Criar novo setor", "Create")
+    @Html.ActionLink("Novo Setor", "Create", null, new { @class = "btn btn-success" })
+
 </p>
 <table class="table">
     <tr>
@@ -35,9 +36,9 @@
             @Html.DisplayFor(modelItem => item.Situacao)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Deletar", "Delete", new { id=item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
         </td>
     </tr>
 }

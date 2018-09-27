@@ -7,7 +7,7 @@
 <h2>Finalizar Movimentacao</h2>
 
 <div>
-    <p>Movimentação finaçizada com sucesso</p>
+    <p>Movimentação finalizada com sucesso</p>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -16,7 +16,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.ValorTotal)
-        </dd>      
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.DataHoraEntrada)
@@ -43,5 +43,4 @@
         </dd>
     </dl>
 </div>
-
-@Html.ActionLink("Voltar para Lista", "Index")
+@Html.ActionLink("Voltar para a página", "Index", null, new { @class = "btn btn-warning btn-sm" })

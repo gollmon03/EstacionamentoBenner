@@ -30,7 +30,7 @@ namespace RegrasNegocio.Regras
         public override void Adicionar(TabelaPreco entidade)
         {
             if (tabelaPrecoJaCadastrada(entidade.TipoVeiculoId))
-                throw new Exception("Já eciste um cadastro para este Tipo de Veiculo");
+                throw new Exception("Já existe um cadastro para este Tipo de Veiculo");
             base.Adicionar(entidade);
         }
 
