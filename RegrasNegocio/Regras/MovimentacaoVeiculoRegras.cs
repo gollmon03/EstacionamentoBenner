@@ -33,6 +33,7 @@ namespace RegrasNegocio.Regras
                 entidade.PlacaVeiculo = mensalista.PlacaVeiculo;
                 entidade.MensalistaId = mensalista.Id;
                 entidade.ValorTotal = 0m;
+                entidade.Gerado = false;
             }
 
             if (entidade.DataHoraEntrada == null)
@@ -45,7 +46,7 @@ namespace RegrasNegocio.Regras
 
             if (movimentacaoveiculorepository.ExisteVeiculoCadastrdo(entidade.PlacaVeiculo))
                 throw new Exception("Já existe uma movimentação com este veiculo");
-            entidade.UsuarioId = 1;
+            entidade.UsuarioId = 3;
 
             base.Adicionar(entidade);
         }        
@@ -53,12 +54,30 @@ namespace RegrasNegocio.Regras
         internal decimal CalculaValorTotalVeiculos(DateTime data)
         {
             var valorTotal = 0m;
-            IList<MovimentacaoVeiculo> movimentacoesSemMensalista = movimentacaoveiculorepository.BuscaTodosSemMensalitaPorMes(data);
+            IList<MovimentacaoVeiculo> movimentacoesSemMensalista = BuscaTodosNaoGeradosPorMes(data);
             foreach (var item in movimentacoesSemMensalista)
-            {
-                valorTotal += item.ValorTotal;
+            {                                
+                if (item.ValorTotal == 0)
+                    valorTotal += item.Mensalista.ValorMensal;
+                else              
+                    valorTotal += item.ValorTotal;
+
+                item.Gerado = true;
+                item.Mensalista = null;
+                Atualizar(item);
             }
             return valorTotal;
+        }
+
+        private IList<MovimentacaoVeiculo> BuscaTodosNaoGeradosPorMes(DateTime data)
+        {
+            var movimentacoes = movimentacaoveiculorepository.BuscaTodosNaoGeradosPorMes(data);
+            foreach (var item in movimentacoes)
+            {                
+                if (item.MensalistaId != null)
+                    item.Mensalista = new MensalistaRegras().buscarporID(Convert.ToInt32(item.MensalistaId));
+            }
+            return movimentacoes;
         }
 
         public MovimentacaoVeiculo FinalizarMovimentacao(int id)

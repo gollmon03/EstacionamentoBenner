@@ -38,31 +38,7 @@
 
         <div id="dados">
             <div class="campos">
-                <!--fields-->
-                <div class="col-md-2">
-                    10/10/2010 10:21:32
-                </div>
-                <div class="col-md-2">
-                    10/10/2010 10:21:32
-                </div>
-                <div class="col-md-2">
-                    10/10/2010 10:21:32
-                </div>
-                <div class="col-md-2">
-                    080998
-                </div>
-                <div class="col-md-1">
-                    Lucas de Souza
-                </div>
-                <div class="col-md-1">
-                    Finalizado
-                </div>
-                <div class="col-md-1">
-                    Contas a receber
-                </div>
-                <div class="col-md-1">
-                    1200,00
-                </div>
+
             </div>
         </div>
     </div>
@@ -115,9 +91,14 @@
             text: item.Pessoa
         }).appendTo(campo);
 
+        var style = "background-color: green;";
+        if (item.Status == "Processado")
+            style = "background-color: yellow;";
+
         $('<div>', {
             class: 'col-md-1',
-            text: item.Status
+            text: item.Status,
+            style: style
         }).appendTo(campo);
 
         $('<div>', {

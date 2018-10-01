@@ -44,9 +44,17 @@ namespace RegrasNegocio.Regras
             return documentofinanceirorepository.BuscaPorData(data);
         }
 
+        public bool UsuarioJaTemRegistroPorMes(DateTime data, int pessoaId)
+        {
+            return documentofinanceirorepository.UsuarioJaTemRegistroPorMes(data, pessoaId);
+        }
+
         private void GerarTipoMensalista(DocumentoFinanceiro documentoFinanceiro, int mensalistaId, DateTime data)
         {
             var mensalista = new MensalistaRegras().buscarporID(mensalistaId);
+
+            if (UsuarioJaTemRegistroPorMes(data, mensalista.PessoaId))
+                throw new Exception("Já foi gerado um documento financeiro para este mesnsalista neste mês");
 
             documentoFinanceiro.PessoaId = mensalista.Pessoa.Id;
             documentoFinanceiro.NumeroDocumento = data.Month.ToString() + data.Year + mensalista.Id;

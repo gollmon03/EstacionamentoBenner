@@ -70,7 +70,7 @@ namespace Estacionamento.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TipoVeiculoId = new SelectList(modeloveiculoregras.buscarTodos(), "Id", "Nome", tabelaPreco.TipoVeiculoId);
+            ViewBag.TipoVeiculoId = new SelectList(tipoveiculoregras.buscarTodos(), "Id", "Nome", tabelaPreco.TipoVeiculoId);
             return View(tabelaPreco);
         }
 

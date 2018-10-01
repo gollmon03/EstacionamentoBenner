@@ -31,6 +31,9 @@ namespace Estacionamento.Models
 
         public decimal ValorTotal { get; set; }
 
+        [Required]
+        public bool Gerado { get; set; }
+
         [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Usuario")]
         public int UsuarioId { get; set; }
@@ -44,6 +47,5 @@ namespace Estacionamento.Models
         [Display(Name = "Vaga")]
         public int VagaId { get; set; }
         public Vaga Vaga { get; set; }
-
     }
 }

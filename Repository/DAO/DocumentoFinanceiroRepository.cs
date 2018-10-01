@@ -18,5 +18,13 @@ namespace Repository.DAO
         {
             return Contexto.DocumentosFinanceiro.Where(d => d.Data.Month == data.Month && d.Data.Year == data.Year).ToList();
         }
+
+        public bool UsuarioJaTemRegistroPorMes(DateTime data, int pessoaId)
+        {
+            var docs = Contexto.DocumentosFinanceiro.Where(d => d.PessoaId == pessoaId && 
+                                                                d.Data.Month == data.Month &&
+                                                                d.Data.Year == data.Year).ToList();
+            return docs.Count > 0;
+        }
     }
 }
