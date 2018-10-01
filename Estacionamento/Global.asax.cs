@@ -17,7 +17,7 @@ namespace Estacionamento
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            // GlobalFilters.Filters.Add(new AutorizacaoFilterAttribute());
+            //GlobalFilters.Filters.Add(new AutorizacaoFilterAttribute());
         }
     }
 }
