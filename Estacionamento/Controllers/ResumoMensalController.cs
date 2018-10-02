@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Estacionamento.Filtro;
 using Estacionamento.Models;
 using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
+    [AutorizacaoFilter(Entidades.Entidades.Enuns.TipoUsuario.Administrador)]
     public class ResumoMensalController : Controller
     {
 

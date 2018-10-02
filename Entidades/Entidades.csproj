@@ -46,6 +46,7 @@
     <Compile Include="Entidades\Enuns\TipoPessoa.cs" />
     <Compile Include="Entidades\Enuns\TipoSituacao.cs" />
     <Compile Include="Entidades\Enuns\TipoStatus.cs" />
+    <Compile Include="Entidades\Enuns\TipoUsuario.cs" />
     <Compile Include="Entidades\Mensalista.cs" />
     <Compile Include="Entidades\ModeloVeiculo.cs" />
     <Compile Include="Entidades\MovimentacaoVeiculo.cs" />

@@ -9,7 +9,7 @@ using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
-    [AutorizacaoFilter]
+    [AutorizacaoFilter(Entidades.Entidades.Enuns.TipoUsuario.Administrador)]
     public class FechamentoMesController : Controller
     {
         private readonly MensalistaRegras mensalistaRegras = new MensalistaRegras();

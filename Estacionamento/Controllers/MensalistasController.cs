@@ -5,7 +5,7 @@ using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
-    [AutorizacaoFilter]
+    [AutorizacaoFilter(Entidades.Entidades.Enuns.TipoUsuario.Administrador)]
     public class MensalistasController : Controller
     {
         private MensalistaRegras mensalistaregras = new MensalistaRegras();

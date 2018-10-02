@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using Entidades.Entidades.Enuns;
+using Estacionamento.Models;
 
 namespace Estacionamento.Models
 {
@@ -32,6 +34,9 @@ namespace Estacionamento.Models
         [MinLength(6, ErrorMessage = "Deve conter no minimo 6 digitos")]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
+
+        [Required]
+        public TipoUsuario Papel { get; set; }
 
         public virtual IList<MovimentacaoVeiculo> MovimentacaoVeiculos { get; set; }
 

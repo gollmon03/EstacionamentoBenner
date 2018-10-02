@@ -7,7 +7,7 @@ using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
-    [AutorizacaoFilter]
+    [AutorizacaoFilter(Entidades.Entidades.Enuns.TipoUsuario.Administrador)]
     public class VagasController : Controller
     {
         private VagaRegras vagaregras = new VagaRegras();

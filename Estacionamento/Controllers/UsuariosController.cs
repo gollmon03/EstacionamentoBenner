@@ -2,13 +2,14 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Entidades.Entidades;
 using Estacionamento.Filtro;
 using Estacionamento.Models;
 using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
-    [AutorizacaoFilter]
+    [AutorizacaoFilter(Entidades.Entidades.Enuns.TipoUsuario.Administrador)]
     public class UsuariosController : Controller
     {
         private UsuarioRegras usuarioregras = new UsuarioRegras();
@@ -41,7 +42,7 @@ namespace Estacionamento.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Cpf,Login,Senha")] Usuario usuario)
+        public ActionResult Create(Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +76,7 @@ namespace Estacionamento.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Cpf")] Usuario usuario)
+        public ActionResult Edit(Usuario usuario)
         {
             if (ModelState.IsValid)
             {

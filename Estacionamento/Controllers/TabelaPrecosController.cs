@@ -7,7 +7,7 @@ using RegrasNegocio.Regras;
 
 namespace Estacionamento.Controllers
 {
-    [AutorizacaoFilter]
+    [AutorizacaoFilter(Entidades.Entidades.Enuns.TipoUsuario.Administrador)]
     public class TabelaPrecosController : Controller
     {
         private TabelaPrecoRegras tabelaprecoregras = new TabelaPrecoRegras();
