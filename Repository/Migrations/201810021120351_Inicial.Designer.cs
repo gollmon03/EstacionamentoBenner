@@ -13,7 +13,7 @@ namespace Repository.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201810011751322_Inicial"; }
+            get { return "201810021120351_Inicial"; }
         }
         
         string IMigrationMetadata.Source
