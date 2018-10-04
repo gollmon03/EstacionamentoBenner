@@ -26,5 +26,12 @@ namespace Repository.DAO
                                                                 d.Data.Year == data.Year).ToList();
             return docs.Count > 0;
         }
+
+        public bool UsuarioNaoTemRegistroMes(DateTime data, int pessoaId)
+        {
+            return Contexto.DocumentosFinanceiro.Where(d => d.PessoaId == pessoaId &&
+                                                            d.Data.Month == data.Month &&
+                                                            d.Data.Year == data.Year).Count() > 0;
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace RegrasNegocio.Regras
 {
     public class PessoaRegras : RegrasBase<Pessoa>
     {
-        PessoaRepository pessoarepository; 
+        PessoaRepository pessoarepository;
 
         public PessoaRegras()
         {
@@ -33,6 +33,11 @@ namespace RegrasNegocio.Regras
         internal Pessoa BuscaPorNome(string nome)
         {
             return pessoarepository.BuscaPorNome(nome);
+        }
+
+        internal Pessoa buscarporIDSemMensalista(int pessoaId)
+        {
+            return buscarporID(pessoaId);
         }
     }
 }

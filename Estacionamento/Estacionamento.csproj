@@ -252,8 +252,10 @@
     <Content Include="Views\Mensalistas\Index.cshtml" />
     <Content Include="Views\MovimentacaoVeiculos\FinalizarMovimentacao.cshtml" />
     <Content Include="Views\Home\FinalizarMovimentacao.cshtml" />
-    <Content Include="Views\FechamentoMes\Index.cshtml" />
     <Content Include="Views\ResumoMensal\Index.cshtml" />
+    <Content Include="Views\FechamentoMes\GerarDocumento.cshtml" />
+    <Content Include="Views\MovimentacaoVeiculos\Details.cshtml" />
+    <Content Include="Views\MovimentacaoVeiculos\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

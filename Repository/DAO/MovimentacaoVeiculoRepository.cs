@@ -33,5 +33,12 @@ namespace Repository.DAO
                                                              m.DataHoraSaida.Value.Month == data.Month &&
                                                              m.DataHoraSaida.Value.Year == data.Year).ToList();
         }
+
+        public bool UsuarioTemRegistroPorMes(DateTime data, int mensalistaId)
+        {
+            return Contexto.MovimentacaoVeiculos.Where(d => d.MensalistaId == mensalistaId &&
+                                                d.DataHoraEntrada.Value.Month == data.Month &&
+                                                d.DataHoraEntrada.Value.Year == data.Year).Count() > 0;
+        }
     }
 }

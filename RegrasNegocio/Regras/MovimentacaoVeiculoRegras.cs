@@ -69,6 +69,11 @@ namespace RegrasNegocio.Regras
             return valorTotal;
         }
 
+        internal bool UsuarioTemRegistroPorMes(DateTime data, int mensalistaId)
+        {
+            return movimentacaoveiculorepository.UsuarioTemRegistroPorMes(data, mensalistaId);
+        }
+
         private IList<MovimentacaoVeiculo> BuscaTodosNaoGeradosPorMes(DateTime data)
         {
             var movimentacoes = movimentacaoveiculorepository.BuscaTodosNaoGeradosPorMes(data);

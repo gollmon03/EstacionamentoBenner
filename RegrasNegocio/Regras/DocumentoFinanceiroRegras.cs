@@ -41,7 +41,12 @@ namespace RegrasNegocio.Regras
 
         public IList<DocumentoFinanceiro> BuscaPorData(DateTime data)
         {
-            return documentofinanceirorepository.BuscaPorData(data);
+            var docFinanceiro = documentofinanceirorepository.BuscaPorData(data);
+            foreach (var item in docFinanceiro)
+            {
+                item.Pessoa = new PessoaRegras().buscarporIDSemMensalista(item.PessoaId);
+            }
+            return docFinanceiro;
         }
 
         public bool UsuarioJaTemRegistroPorMes(DateTime data, int pessoaId)
@@ -53,14 +58,23 @@ namespace RegrasNegocio.Regras
         {
             var mensalista = new MensalistaRegras().buscarporID(mensalistaId);
 
+            var temRegistro = new MovimentacaoVeiculoRegras().UsuarioTemRegistroPorMes(data, mensalista.Id);
+            if (!temRegistro)
+                throw new Exception("Nenhuma movimentação deste cleinte no mês informado");
+
             if (UsuarioJaTemRegistroPorMes(data, mensalista.PessoaId))
                 throw new Exception("Já foi gerado um documento financeiro para este mesnsalista neste mês");
 
             documentoFinanceiro.PessoaId = mensalista.Pessoa.Id;
             documentoFinanceiro.NumeroDocumento = data.Month.ToString() + data.Year + mensalista.Id;
-            documentoFinanceiro.Valor = mensalista.ValorMensal;
+            documentoFinanceiro.Valor = mensalista.ValorMensal;            
 
             Adicionar(documentoFinanceiro);
+        }
+
+        private bool UsuarioNaoTemRegistroMes(DateTime data, int PessoaId)
+        {
+            return documentofinanceirorepository.UsuarioNaoTemRegistroMes(data, PessoaId);
         }
 
         internal IList<DocumentoFinanceiro> BuscaProcessadosPorPessoa(int pessoaId)
@@ -72,6 +86,8 @@ namespace RegrasNegocio.Regras
         {
             documentoFinanceiro.NumeroDocumento = data.Month.ToString() + data.Year.ToString();
             documentoFinanceiro.Valor = new MovimentacaoVeiculoRegras().CalculaValorTotalVeiculos(data);
+            if (documentoFinanceiro.Valor == 0m)
+                throw new Exception("Nenhuma movimentação registrada neste período");
             documentoFinanceiro.PessoaId = new PessoaRegras().BuscaPorNome("Pessoa Anonima").Id;
 
             Adicionar(documentoFinanceiro);

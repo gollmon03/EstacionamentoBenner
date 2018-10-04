@@ -30,6 +30,6 @@ namespace Estacionamento.Models
         [Display(Name = "CNPJ")]
         public string Cnpj { get; set; }
 
-        public virtual IList<Mensalista> Mensalistas { get; set; }
+        //public virtual IList<Mensalista> Mensalistas { get; set; }
     }
 }

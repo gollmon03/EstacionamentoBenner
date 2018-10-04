@@ -22,3 +22,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+/*input month*/
+legend {
+    background-color: #000;
+    color: #fff;
+    padding: 3px 6px;
+}
+
+.output {
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+4label {
+    margin-top: 1rem;
+    display: block;
+    font-size: .8rem;
+}

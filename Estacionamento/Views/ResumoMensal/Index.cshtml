@@ -5,8 +5,10 @@
 
 <h2>Resumo Mensal</h2>
 
-<input type="date" id="data"/>
-<button onclick="Filtrar()" class = "btn btn-success btn-sm" >Filtrar</button>
+<input type="month" id="data" name="data"
+       min="2018-01" value="@DateTime.Now.Year-@DateTime.Now.Month"
+       class="form-control" />
+<button onclick="Filtrar()" class="btn btn-success btn-sm">Filtrar</button>
 
 <div class="container">
     <div class="row">
@@ -54,16 +56,16 @@
             data: { data: data },
             success: function (result) {
                 $(".campos").remove();
-                $(result).each(function (i, item) {                    
+                $(result).each(function (i, item) {
                     AdicionaCampo(item);
-                })                
+                })
             }
         })
     }
 
     function AdicionaCampo(item) {
         var campo = $('<div>', {
-            class: 'campos'            
+            class: 'campos'
         })
 
         $('<div>', {
@@ -88,11 +90,14 @@
 
         $('<div>', {
             class: 'col-md-1',
-            text: item.Pessoa
+            text: item.Pessoa.Nome
         }).appendTo(campo);
 
-        var style = "background-color: green;";
-        if (item.Status == "Processado")
+        var style = "background-color: #00ff00;";
+        if (item.Status == "Processado" && item.Pessoa.Nome == "Pessoa Anonima") {
+            item.Status = "Concluido";
+            style = "background-color: #00ff00;";
+        } else if (item.Status == "Processado")
             style = "background-color: yellow;";
 
         $('<div>', {
@@ -114,7 +119,7 @@
         campo.appendTo("#dados")
 
         var strData = item.Data.slice(6, 19);
-        console.log(strData)                        
+        console.log(strData)
     }
 
     function MontaData(strData) {

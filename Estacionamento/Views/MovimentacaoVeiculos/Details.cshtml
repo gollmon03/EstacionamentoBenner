@@ -1,0 +1,90 @@
+﻿@model Estacionamento.Models.MovimentacaoVeiculo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MovimentacaoVeiculo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DataHoraEntrada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataHoraEntrada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataHoraSaida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataHoraSaida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlacaVeiculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlacaVeiculo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoVeiculoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoVeiculoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gerado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gerado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuarioId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuarioId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MensalistaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MensalistaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VagaId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VagaId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

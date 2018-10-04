@@ -10,10 +10,12 @@
     <label id="lblResposta" class="text-success" style="display: none;"></label>
     <div class="form-group">
         <label class="control-label col-md-2">Mês</label>
-        <div class="col-md-10">
-            <input name="mes" id="mes" type="date" class="form-control" />
+        <div class="col-md-10">            
+            <input type="month" id="mes" name="mes"
+                   min="2018-01" value="@DateTime.Now.Year-@DateTime.Now.Month"
+                   class="form-control" />
         </div>
-    </div>
+    </div>    
 
     <div class="form-group" id="tipoVeiculoClass">
         <label class="control-label col-md-2">Tipo</label>
@@ -70,4 +72,3 @@
         })
     })
 </script>
-
