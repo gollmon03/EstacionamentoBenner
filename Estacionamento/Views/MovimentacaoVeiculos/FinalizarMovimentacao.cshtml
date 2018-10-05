@@ -42,4 +42,9 @@
         </dd>
     </dl>
 </div>
-@Html.ActionLink("Voltar para a página", "Index", null, new { @class = "btn btn-warning btn-sm" })
+<p>
+    <a class="btn btn-warning btn-sm texto-branco" href="@Url.Action("Index")">
+        <i class="fas fa-chevron-left"></i>
+        Voltar para a página
+    </a>
+</p>

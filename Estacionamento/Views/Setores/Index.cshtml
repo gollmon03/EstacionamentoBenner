@@ -8,8 +8,10 @@
 <br />
 
 <p>
-    @Html.ActionLink("Novo Setor", "Create", null, new { @class = "btn btn-success" })
-
+    <a href="@Url.Action("Create")" class="btn btn-success">
+        <i class="fas fa-plus"></i>
+        Novo Setor
+    </a>
 </p>
 <table class="table">
     <tr>
@@ -37,9 +39,20 @@
             @Html.DisplayFor(modelItem => item.Situacao)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" }) |
-            @Html.ActionLink("Detalhes", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" }) |
-            @Html.ActionLink("Deletar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+            <a class="btn btn-primary btn-sm texto-branco" href="@Url.Action("Edit", new { id = item.Id } )">
+                <i class="fas fa-edit"></i>
+                Editar
+            </a> |
+
+            <a class="btn btn-info btn-sm texto-branco" href="@Url.Action("Details", new { id = item.Id } )">
+                <i class="fas fa-info-circle"></i>
+                Detalhes
+            </a> |
+
+            <a class="btn btn-danger btn-sm texto-branco" href="@Url.Action("Delete", new { id = item.Id } )">
+                <i class="fas fa-trash"></i>
+                Deletar
+            </a>
         </td>
     </tr>
 }

@@ -140,5 +140,15 @@ namespace RegrasNegocio.Regras
             return movimentacoes;
         }
 
+        public override MovimentacaoVeiculo buscarporID(int Id)
+        {
+            var movimentacoes = base.buscarporID(Id);
+            movimentacoes.Usuario = new UsuarioRegras().buscarporID(movimentacoes.UsuarioId);
+            //movimentacoes.Mensalista = new MensalistaRegras().buscarporID(movimentacoes.MensalistaId);
+            movimentacoes.TipoVeiculo = new TipoVeiculoRegras().buscarporID(movimentacoes.TipoVeiculoId);
+            return movimentacoes;
+        }
+
+       
     }
 }

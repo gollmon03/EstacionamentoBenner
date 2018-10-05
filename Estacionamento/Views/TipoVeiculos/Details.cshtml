@@ -20,7 +20,13 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id } , new { @class = "btn btn-primary btn-sm" }) |
-    @Html.ActionLink("Voltar para a página", "Index", null, new { @class = "btn btn-warning btn-sm" })
+    <a class="btn btn-primary btn-sm texto-branco" href="@Url.Action("Edit", new { id = Model.Id } )">
+        <i class="fas fa-edit"></i>
+        Editar
+    </a> |
 
+    <a class="btn btn-warning btn-sm texto-branco" href="@Url.Action("Index")">
+        <i class="fas fa-chevron-left"></i>
+        Voltar para a página
+    </a>
 </p>
