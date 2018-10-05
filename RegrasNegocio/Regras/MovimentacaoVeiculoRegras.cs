@@ -49,6 +49,8 @@ namespace RegrasNegocio.Regras
             entidade.UsuarioId = 3;
 
             base.Adicionar(entidade);
+            vaga.Situacao = Estacionamento.Models.Enuns.TipoSituacao.Ocupado;            
+            new VagaRegras().Atualizar(vaga);
         }        
 
         internal decimal CalculaValorTotalVeiculos(DateTime data)
@@ -94,9 +96,13 @@ namespace RegrasNegocio.Regras
                 movimentacao.DataHoraSaida = DateTime.Now;
 
                 if (movimentacao.MensalistaId == null)
-                    movimentacao.ValorTotal = CalculaValorTotal(movimentacao);                
+                    movimentacao.ValorTotal = CalculaValorTotal(movimentacao);
 
-                movimentacaoveiculorepository.Atualizar(movimentacao);                
+                var vagaRegra = new VagaRegras();
+                movimentacaoveiculorepository.Atualizar(movimentacao);
+                movimentacao.Vaga = vagaRegra.buscarporID(movimentacao.VagaId);
+                movimentacao.Vaga.Situacao = Estacionamento.Models.Enuns.TipoSituacao.Disponivel;
+                vagaRegra.Atualizar(movimentacao.Vaga);
             }
             return movimentacao;
         }
@@ -143,9 +149,11 @@ namespace RegrasNegocio.Regras
         public override MovimentacaoVeiculo buscarporID(int Id)
         {
             var movimentacoes = base.buscarporID(Id);
-            movimentacoes.Usuario = new UsuarioRegras().buscarporID(movimentacoes.UsuarioId);
-            //movimentacoes.Mensalista = new MensalistaRegras().buscarporID(movimentacoes.MensalistaId);
+            movimentacoes.Usuario = new UsuarioRegras().buscarporID(movimentacoes.UsuarioId);      
+            if (movimentacoes.MensalistaId != null)
+                movimentacoes.Mensalista = new MensalistaRegras().buscarporID((int)movimentacoes.MensalistaId);
             movimentacoes.TipoVeiculo = new TipoVeiculoRegras().buscarporID(movimentacoes.TipoVeiculoId);
+            movimentacoes.Vaga = new VagaRegras().buscarporID(movimentacoes.VagaId);
             return movimentacoes;
         }
 

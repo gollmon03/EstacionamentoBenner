@@ -25,8 +25,6 @@ namespace Estacionamento.Models
         public int SetorId { get; set; }
         public Setor Setor { get; set; }
 
-        public virtual IList<MovimentacaoVeiculo> MovimentacaoVeiculos { get; set; }
-
        
 
     }

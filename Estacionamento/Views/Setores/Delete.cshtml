@@ -41,7 +41,12 @@
         @Html.AntiForgeryToken()
 
     <div class="form-actions no-color">
-        <input type="submit" value="Deletar" class="btn btn-danger btn-sm" /> |
+        
+        <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i>
+            Deletar
+        </button> |
+        
         <a class="btn btn-warning btn-sm texto-branco" href="@Url.Action("Index")">
             <i class="fas fa-chevron-left"></i>
             Voltar para a página

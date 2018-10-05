@@ -22,6 +22,13 @@ namespace RegrasNegocio.Regras
             return vagarepository.BuscarVagaLivre();
         }
 
+        public override Vaga buscarporID(int Id)
+        {
+            var vaga = base.buscarporID(Id);
+            vaga.Setor = new SetorRegras().buscarporID(vaga.SetorId);
+            return vaga;
+        }
+
         public override IList<Vaga> buscarTodos()
         {
             var vagas = base.buscarTodos();

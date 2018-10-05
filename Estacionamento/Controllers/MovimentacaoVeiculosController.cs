@@ -20,7 +20,7 @@ namespace Estacionamento.Controllers
         // GET: MovimentacaoVeiculos
         public ActionResult Index()
         {
-            var movimentacoes = movimentacaoveiculoregras.buscarTodos();
+            var movimentacoes = movimentacaoveiculoregras.buscarTodos().Reverse();
             return View(movimentacoes);         
         }
 

@@ -70,7 +70,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Mensalista.Pessoa)
+            @if (Model.MensalistaId == null)
+            {
+                <p>Não há mensalista</p>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.Mensalista.Pessoa.Nome)
+            }
         </dd>
 
         <dt>
@@ -78,7 +85,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VagaId)
+            @Html.DisplayFor(model => model.Vaga.Numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vaga.Setor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vaga.Setor.Nome)
         </dd>
 
     </dl>
