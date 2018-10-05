@@ -9,8 +9,7 @@
     }
 
     .container {
-        padding: 25px;
-        position: fixed;
+        position: absolute;
     }
 
     .form-login {
@@ -39,9 +38,23 @@
     .wrapper {
         text-align: center;
     }
+
+    #login {
+        margin-top: 0px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-168px, -120px);
+    }
+        #login > div > div > div {
+            box-shadow: 5px 7px 20px 3px black
+        }
+            #login > div > div > div > form > div.wrapper > span > button {
+                margin-top: 10px;
+                width: 100%;
+            }
 </style>
 
-<div class="container">
+<div id="login" class="container">
     <div class="row">
         <div class="col-md-offset-5 col-md-3">
             <div class="form-login">
@@ -51,9 +64,9 @@
                     <h4>Indentifique-se.</h4>
                     @Html.ValidationSummary()
                     <input type="text" id="userName" for="login" name="login" class="form-control input-sm chat-input" placeholder="username" />
-                    
+
                     <input type="password" id="userPassword" for="senha" name="senha" class="form-control input-sm chat-input" placeholder="password" />
-                   
+
                     <div class="wrapper">
                         <span class="group-btn">
                             <button type="submit" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></button>

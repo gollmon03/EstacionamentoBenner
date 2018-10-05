@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+
     padding-bottom: 20px;
 }
 
@@ -39,4 +39,18 @@ legend {
     margin-top: 1rem;
     display: block;
     font-size: .8rem;
+}
+
+body > div {
+    margin-top: 50px
+}
+
+
+
+.campos {
+    margin-top: 10px;
+}
+
+.texto-branco{
+    color: white
 }

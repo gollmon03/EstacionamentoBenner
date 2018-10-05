@@ -4,14 +4,16 @@
 }
 
 <h2>Resumo Mensal</h2>
+<br />
 
-<input type="month" id="data" name="data"
-       min="2018-01" value="@DateTime.Now.Year-@DateTime.Now.Month"
-       class="form-control" />
-<button onclick="Filtrar()" class="btn btn-success btn-sm">Filtrar</button>
-
-<div class="container">
-    <div class="row">
+<div class="row">
+    <input type="month" id="data" name="data" style="float:left; margin-right:10px;"
+           min="2018-01" value="@DateTime.Now.Year-@DateTime.Now.Month"
+           class="form-control" />
+    <button onclick="Filtrar()" class="btn btn-success btn-sm">Filtrar</button>
+</div>
+<div>
+    <div class="row" style="margin-top: 50px">
         <div class="col-md-2">
             Data
         </div>
@@ -21,8 +23,8 @@
         <div class="col-md-2">
             Data Vencimento
         </div>
-        <div class="col-md-2">
-            Numero Documento
+        <div class="col-md-1">
+            Nº Dcto
         </div>
         <div class="col-md-1">
             Pessoa
@@ -30,18 +32,17 @@
         <div class="col-md-1">
             Status
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
             Tipo
         </div>
         <div class="col-md-1">
             Valor
         </div>
-        <hr />
+    </div>
+    <hr />
 
-        <div id="dados">
-            <div class="campos">
-
-            </div>
+    <div id="dados">
+        <div class="campos">
         </div>
     </div>
 </div>
@@ -65,7 +66,7 @@
 
     function AdicionaCampo(item) {
         var campo = $('<div>', {
-            class: 'campos'
+            class: 'campos row'
         })
 
         $('<div>', {
@@ -84,7 +85,7 @@
         }).appendTo(campo);
 
         $('<div>', {
-            class: 'col-md-2',
+            class: 'col-md-1',
             text: item.NumeroDocumento
         }).appendTo(campo);
 
@@ -100,14 +101,19 @@
         } else if (item.Status == "Processado")
             style = "background-color: yellow;";
 
-        $('<div>', {
+        var status = $('<div>', {
             class: 'col-md-1',
+        })
+
+        $('<a>', {
             text: item.Status,
             style: style
-        }).appendTo(campo);
+        }).appendTo(status)
+
+        status.appendTo(campo);
 
         $('<div>', {
-            class: 'col-md-1',
+            class: 'col-md-2',
             text: item.Tipo
         }).appendTo(campo);
 
